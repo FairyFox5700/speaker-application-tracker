@@ -4,17 +4,18 @@ A local-first CFP and speaker-application pipeline focused on agentic systems, A
 
 ## Features
 
-- Three supplied CFP opportunities as seed data
+- Seven verified, currently open CFP opportunities matched to the niche
+- Passed deadlines are excluded automatically
 - Computed deadline urgency (never stored as a stale status)
 - Application pipeline statuses and inline status updates
 - Deterministic talk-to-CFP matching with visible reasons
 - Search and combined status/deadline/priority filters
 - Add, edit, and delete opportunities
-- Browser persistence under `speakerTracker:v1`
+- Browser persistence under `speakerTracker:v2`
 - JSON backup/import and RFC 4180-compatible CSV export
 - Responsive single-column mobile cards
 
-> As of 2026-10-31, all three supplied CFP deadlines have passed. The tracker shows them honestly as passed while preserving the original “CFP open” source label in exported data.
+The original three suggestions were removed because their deadlines had passed. The tracker now includes only CFPs whose deadlines are still open and automatically hides an opportunity once its deadline passes.
 
 ## Run locally
 

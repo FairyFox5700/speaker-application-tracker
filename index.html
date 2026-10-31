@@ -22,7 +22,7 @@
 
     <section class="metrics" aria-label="Pipeline summary">
       <article><span>Open CFPs</span><strong id="metricOpen">0</strong><small>future deadlines</small></article>
-      <article><span>Deadline passed</span><strong id="metricPassed">0</strong><small>review or archive</small></article>
+      <article><span>Due ≤21 days</span><strong id="metricSoon">0</strong><small>prioritize proposals</small></article>
       <article><span>Drafting</span><strong id="metricDrafting">0</strong><small>proposals in progress</small></article>
       <article><span>Submitted</span><strong id="metricSubmitted">0</strong><small>awaiting decisions</small></article>
     </section>
@@ -41,7 +41,7 @@
       <form class="filterbar" id="filters" role="search" aria-label="Filter opportunities">
         <label class="search-field"><span class="sr-only">Search opportunities</span><input id="search" data-testid="search" type="search" placeholder="Search conference, topic or location"></label>
         <label><span class="sr-only">Application status</span><select id="statusFilter" data-testid="status-filter"><option value="all">All statuses</option></select></label>
-        <label><span class="sr-only">Deadline status</span><select id="deadlineFilter" data-testid="deadline-filter"><option value="all">All deadlines</option><option value="open">Open CFPs</option><option value="passed">Deadline passed</option><option value="today">Due today</option><option value="critical">1–7 days</option><option value="soon">8–21 days</option></select></label>
+        <label><span class="sr-only">Deadline status</span><select id="deadlineFilter" data-testid="deadline-filter"><option value="all">All open deadlines</option><option value="today">Due today</option><option value="critical">1–7 days</option><option value="soon">8–21 days</option><option value="upcoming">22–60 days</option><option value="later">Later</option></select></label>
         <label><span class="sr-only">Priority</span><select id="priorityFilter"><option value="all">All priorities</option><option>High</option><option>Medium</option><option>Low</option></select></label>
         <button class="quiet" id="clearFilters" data-testid="clear-filters" type="button">Clear</button>
       </form>

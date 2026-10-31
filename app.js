@@ -42,11 +42,12 @@
   }
 
   function renderMetrics() {
-    const states = state.opportunities.map(item => core.deadlineState(item.deadlineDate));
-    $('metricOpen').textContent = states.filter(x => ['today','critical','soon','upcoming','later'].includes(x.key)).length;
-    $('metricPassed').textContent = states.filter(x => x.key === 'passed').length;
-    $('metricDrafting').textContent = state.opportunities.filter(x => x.status === 'Drafting').length;
-    $('metricSubmitted').textContent = state.opportunities.filter(x => x.status === 'Submitted').length;
+    const active = core.activeOpportunities(state.opportunities);
+    const deadlines = active.map(item => core.deadlineState(item.deadlineDate));
+    $('metricOpen').textContent = active.length;
+    $('metricSoon').textContent = deadlines.filter(x => x.days !== null && x.days <= 21).length;
+    $('metricDrafting').textContent = active.filter(x => x.status === 'Drafting').length;
+    $('metricSubmitted').textContent = active.filter(x => x.status === 'Submitted').length;
   }
 
   function cardHtml(item) {
@@ -56,7 +57,7 @@
       <div class="opportunity-title"><span class="priority-dot ${escapeHtml(item.priority)}" aria-hidden="true"></span><div><h3>${escapeHtml(item.name)}</h3><p>${escapeHtml(item.category)} · ${escapeHtml(item.location)} · event ${dateLabel(item.eventDate)}</p></div></div>
       <div class="status-cell"><span class="label">Application</span><select class="status-select" data-status-id="${escapeHtml(item.id)}" aria-label="Application status for ${escapeHtml(item.name)}">${statusOptions(item.status)}</select></div>
       <div class="deadline"><span class="label">CFP deadline</span><strong>${dateLabel(item.deadlineDate)}</strong><span class="deadline-badge ${deadline.key}">${escapeHtml(deadline.label)}</span></div>
-      <button class="quiet edit-button" data-edit-id="${escapeHtml(item.id)}" data-testid="edit-opportunity" type="button">Edit details</button>
+      <div class="card-actions"><a class="primary cfp-link" href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noopener">Open CFP</a><button class="quiet edit-button" data-edit-id="${escapeHtml(item.id)}" data-testid="edit-opportunity" type="button">Edit</button></div>
       <div class="talk-match"><span class="label">Best talk match</span>${match ? `<strong>${escapeHtml(match.talk.title)} <span class="score">${match.score}%</span></strong><small>${escapeHtml(match.reasons.slice(0,2).join(' · '))}</small>` : '<strong>No talk idea yet</strong>'}</div>
       <div class="next-action"><b>Next:</b> ${escapeHtml(item.nextAction || 'Choose a next action.')}</div>
     </article>`;
@@ -75,7 +76,8 @@
     });
     els.list.innerHTML = filtered.map(cardHtml).join('');
     els.empty.hidden = filtered.length !== 0;
-    els.count.textContent = `${filtered.length} of ${state.opportunities.length} opportunities`;
+    const activeCount = core.activeOpportunities(state.opportunities).length;
+    els.count.textContent = `${filtered.length} of ${activeCount} open opportunities`;
     renderMetrics();
     renderTalks();
   }
@@ -140,6 +142,8 @@
 
   function saveOpportunity(event) {
     event.preventDefault();
+    const deadlineInput = $('deadlineField');
+    deadlineInput.setCustomValidity(core.deadlineState(deadlineInput.value).key === 'passed' ? 'Only CFPs with an unexpired deadline can be tracked.' : '');
     if (!els.form.reportValidity()) return;
     const record = formRecord();
     const index = state.opportunities.findIndex(x => x.id === activeEditId);
@@ -168,17 +172,18 @@
   }
 
   function downloadJson() {
-    download('speaker-application-tracker.json', 'application/json;charset=utf-8', JSON.stringify(state, null, 2));
+    const activeState = {...state, opportunities: core.activeOpportunities(state.opportunities)};
+    download('speaker-application-tracker.json', 'application/json;charset=utf-8', JSON.stringify(activeState, null, 2));
     showToast('JSON backup exported');
   }
 
   function downloadCsv() {
-    download('speaker-opportunities.csv', 'text/csv;charset=utf-8', '\ufeff' + core.toCsv(state.opportunities));
+    download('speaker-opportunities.csv', 'text/csv;charset=utf-8', '\ufeff' + core.toCsv(core.activeOpportunities(state.opportunities)));
     showToast('CSV exported');
   }
 
   function resetData() {
-    if (!window.confirm('Replace all saved data with the original three CFPs and starter talk ideas?')) return;
+    if (!window.confirm('Replace all saved data with the current open CFPs and starter talk ideas?')) return;
     state = core.initialState();
     persist('Seed data restored');
     clearFilters();
@@ -188,8 +193,8 @@
     if (!file) return;
     try {
       const parsed = JSON.parse(await file.text());
-      if (!parsed || parsed.version !== 1 || !Array.isArray(parsed.opportunities) || !Array.isArray(parsed.talks)) throw new Error('Unsupported file');
-      state = parsed; persist('Backup imported'); clearFilters();
+      if (!parsed || parsed.version !== 2 || !Array.isArray(parsed.opportunities) || !Array.isArray(parsed.talks)) throw new Error('Unsupported file');
+      state = {...parsed, opportunities: core.activeOpportunities(parsed.opportunities)}; persist('Backup imported'); clearFilters();
     } catch (error) {
       window.alert(`Could not import this file: ${error.message}`);
     } finally { $('importJson').value = ''; }
@@ -200,6 +205,8 @@
     $('statusField').insertAdjacentHTML('beforeend', `<option>${escapeHtml(status)}</option>`);
   });
 
+  $('deadlineField').min = new Date().toISOString().slice(0, 10);
+  $('deadlineField').addEventListener('input', event => event.target.setCustomValidity(''));
   $('addButton').addEventListener('click', () => openEditor());
   $('closeEditor').addEventListener('click', closeEditor);
   $('cancelEditor').addEventListener('click', closeEditor);

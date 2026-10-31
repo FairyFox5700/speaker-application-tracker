@@ -5,81 +5,72 @@
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
 
-  const STORAGE_KEY = 'speakerTracker:v1';
+  const STORAGE_KEY = 'speakerTracker:v2';
   const STATUSES = ['Not started', 'Drafting', 'Submitted', 'Accepted', 'Rejected', 'Withdrawn'];
 
   const SEED_OPPORTUNITIES = [
     {
-      id: 'nextgen-intelligence-2026',
-      name: 'NextGen Intelligence Conference: Data, Cloud & AI',
-      category: 'general conference',
-      eventDate: '2026-11-16',
-      deadlineDate: '2026-10-09',
-      deadlineTimezone: 'Europe/London',
-      location: 'London, U.K., Online',
-      deliveryMode: 'Hybrid',
-      source: 'Conferences & CFPs (confs.tech)',
-      sourceUrl: 'https://confs.tech/',
-      sourceStatus: 'CFP open',
-      sourceScore: 0.29,
-      topics: ['Agentic AI', 'Azure', 'Cloud', 'Data'],
-      audience: ['Developers', 'Architects', 'Data leaders'],
-      status: 'Not started',
-      priority: 'High',
-      matchedTalkIds: ['reliable-agentic-workflows'],
-      nextAction: 'Check whether late submissions or a waitlist are available.',
-      notes: '',
-      submittedAt: '',
-      confirmationReference: '',
-      lastUpdated: '2026-10-31'
+      id: 'data-saturday-denmark-2027', name: 'Data Saturday Denmark 2027', category: 'data and cloud conference',
+      eventDate: '2027-01-30', deadlineDate: '2026-11-14', deadlineTimezone: 'Europe/Copenhagen',
+      location: 'Microsoft HQ, Kongens Lyngby, Denmark', deliveryMode: 'In-person',
+      source: 'Official Sessionize CFP', sourceUrl: 'https://sessionize.com/datasatdk-2027/', sourceStatus: 'CFP open', sourceScore: 0.88,
+      topics: ['Agentic AI', 'Azure', 'Cloud', 'Data', 'Microsoft Fabric'], audience: ['Developers', 'Architects', 'Data leaders'],
+      status: 'Not started', priority: 'High', matchedTalkIds: ['reliable-agentic-workflows'],
+      nextAction: 'Adapt the Azure agent workflow talk for a data-platform audience.', notes: '', submittedAt: '', confirmationReference: '', lastUpdated: '2026-10-31'
     },
     {
-      id: 'ai-for-developers-2026',
-      name: 'AI for Developers',
-      category: 'data conference',
-      eventDate: '2026-12-17',
-      deadlineDate: '2026-06-01',
-      deadlineTimezone: 'UTC',
-      location: 'Online',
-      deliveryMode: 'Online',
-      source: 'Conferences & CFPs (confs.tech)',
-      sourceUrl: 'https://confs.tech/',
-      sourceStatus: 'CFP open',
-      sourceScore: 0.29,
-      topics: ['AI Engineering', 'Developer Tools', 'Agentic AI'],
-      audience: ['Developers'],
-      status: 'Not started',
-      priority: 'Medium',
-      matchedTalkIds: ['copilot-to-production'],
-      nextAction: 'Confirm whether the CFP has reopened for the December event.',
-      notes: '',
-      submittedAt: '',
-      confirmationReference: '',
-      lastUpdated: '2026-10-31'
+      id: 'tdx-2027', name: 'TDX 2027', category: 'developer and enterprise AI conference',
+      eventDate: '2027-03-10', deadlineDate: '2026-11-16', deadlineTimezone: 'America/Los_Angeles',
+      location: 'San Francisco, U.S. · Salesforce+', deliveryMode: 'Hybrid',
+      source: 'Official Salesforce CFP announcement', sourceUrl: 'https://developer.salesforce.com/blogs/2026/10/the-tdx-2027-call-for-participation-is-now-open', sourceStatus: 'CFP open', sourceScore: 0.83,
+      topics: ['Agentic AI', 'Enterprise AI', 'Developer Tools', 'Platform Engineering'], audience: ['Developers', 'Architects', 'Engineering leaders'],
+      status: 'Not started', priority: 'Medium', matchedTalkIds: ['human-loop-multi-agent'],
+      nextAction: 'Frame the human-in-the-loop story for the agentic enterprise.', notes: '', submittedAt: '', confirmationReference: '', lastUpdated: '2026-10-31'
     },
     {
-      id: 'ai-coding-summit-2026',
-      name: 'AI Coding Summit',
-      category: 'javascript conference',
-      eventDate: '2026-02-26',
-      deadlineDate: '2026-01-26',
-      deadlineTimezone: 'UTC',
-      location: 'Online',
-      deliveryMode: 'Online',
-      source: 'Conferences & CFPs (confs.tech)',
-      sourceUrl: 'https://confs.tech/',
-      sourceStatus: 'CFP open',
-      sourceScore: 0.29,
-      topics: ['AI Coding', 'Developer Tools', 'JavaScript'],
-      audience: ['Developers'],
-      status: 'Not started',
-      priority: 'Low',
-      matchedTalkIds: ['copilot-to-production'],
-      nextAction: 'Archive unless a new edition is announced.',
-      notes: '',
-      submittedAt: '',
-      confirmationReference: '',
-      lastUpdated: '2026-10-31'
+      id: 'fabcon-sqlcon-2027', name: 'FABCON & SQLCON 2027', category: 'Microsoft data and AI conference',
+      eventDate: '2027-03-08', deadlineDate: '2026-11-22', deadlineTimezone: 'America/New_York',
+      location: 'Atlanta, Georgia, U.S.', deliveryMode: 'In-person',
+      source: 'Official Sessionize CFP', sourceUrl: 'https://sessionize.com/fabcon-2027-sqlcon-2027-sessions/', sourceStatus: 'CFP open', sourceScore: 0.84,
+      topics: ['Azure AI', 'Microsoft Fabric', 'Data', 'AI Engineering'], audience: ['Developers', 'Architects', 'Data leaders'],
+      status: 'Not started', priority: 'Medium', matchedTalkIds: ['reliable-agentic-workflows'],
+      nextAction: 'Connect the agent demo to Fabric data and Azure AI.', notes: '', submittedAt: '', confirmationReference: '', lastUpdated: '2026-10-31'
+    },
+    {
+      id: 'azureday-poland-2027', name: 'AzureDay Poland 2027', category: 'Azure and AI conference',
+      eventDate: '2027-03-11', deadlineDate: '2026-11-30', deadlineTimezone: 'Europe/Warsaw',
+      location: 'Warsaw, Poland', deliveryMode: 'In-person',
+      source: 'Official Sessionize CFP', sourceUrl: 'https://sessionize.com/azureday-poland-2027/', sourceStatus: 'CFP open', sourceScore: 0.97,
+      topics: ['Agentic AI', 'Azure', 'Microsoft Foundry', 'Cloud', 'AI Engineering'], audience: ['Developers', 'Architects'],
+      status: 'Not started', priority: 'High', matchedTalkIds: ['reliable-agentic-workflows'],
+      nextAction: 'Submit the reliable agentic workflows talk with a live Azure demo.', notes: '', submittedAt: '', confirmationReference: '', lastUpdated: '2026-10-31'
+    },
+    {
+      id: 'ai-context-new-york-2027', name: 'AI Context New York', category: 'agentic AI conference',
+      eventDate: '2027-03-16', deadlineDate: '2027-01-04', deadlineTimezone: 'America/New_York',
+      location: 'New York, U.S.', deliveryMode: 'In-person',
+      source: 'Official Sessionize CFP', sourceUrl: 'https://sessionize.com/ai-context-ny-co/', sourceStatus: 'CFP open', sourceScore: 0.96,
+      topics: ['Agentic AI', 'Enterprise AI', 'AI Infrastructure', 'Protocols'], audience: ['Developers', 'Architects', 'Engineering leaders'],
+      status: 'Not started', priority: 'High', matchedTalkIds: ['human-loop-multi-agent'],
+      nextAction: 'Position the talk around scaling controlled agent systems in production.', notes: '', submittedAt: '', confirmationReference: '', lastUpdated: '2026-10-31'
+    },
+    {
+      id: 'optimized-ai-conference-2027', name: 'Optimized AI Conference 2027', category: 'applied AI conference',
+      eventDate: '2027-03-31', deadlineDate: '2027-02-28', deadlineTimezone: 'America/New_York',
+      location: 'Atlanta, Georgia, U.S.', deliveryMode: 'In-person',
+      source: 'Official Sessionize CFP', sourceUrl: 'https://sessionize.com/OAIConference-2027/', sourceStatus: 'CFP open', sourceScore: 0.95,
+      topics: ['Agentic AI', 'LLM Ops', 'RAG', 'AI Engineering'], audience: ['Developers', 'Engineering leaders'],
+      status: 'Not started', priority: 'High', matchedTalkIds: ['copilot-to-production'],
+      nextAction: 'Develop measurable business outcomes and evaluation examples.', notes: '', submittedAt: '', confirmationReference: '', lastUpdated: '2026-10-31'
+    },
+    {
+      id: 'cloud-code-oost', name: 'Cloud & Code Oost', category: 'developer meetup series',
+      eventDate: '2027-02-01', deadlineDate: '2027-09-22', deadlineTimezone: 'Europe/Amsterdam',
+      location: 'Doetinchem, Netherlands', deliveryMode: 'In-person',
+      source: 'Official Sessionize CFP', sourceUrl: 'https://sessionize.com/cloudcodeoost/', sourceStatus: 'Rolling CFP open', sourceScore: 0.9,
+      topics: ['Agentic AI', 'Azure', 'Cloud', 'Developer Tools', 'Software Architecture'], audience: ['Developers', 'Architects'],
+      status: 'Not started', priority: 'Medium', matchedTalkIds: ['reliable-agentic-workflows'],
+      nextAction: 'Offer a practical 45-minute Azure agent engineering session.', notes: '', submittedAt: '', confirmationReference: '', lastUpdated: '2026-10-31'
     }
   ];
 
@@ -140,6 +131,13 @@
     return {key: 'later', label: `${days} days left`, days};
   }
 
+  function activeOpportunities(items, now) {
+    return (items || []).filter(item => {
+      const state = deadlineState(item.deadlineDate, now);
+      return state.days !== null && state.days >= 0;
+    });
+  }
+
   function overlaps(a, b) {
     const right = new Set((b || []).map(x => String(x).toLowerCase()));
     return (a || []).some(x => right.has(String(x).toLowerCase()));
@@ -176,7 +174,7 @@
   function filterOpportunities(items, filters, now) {
     const f = filters || {};
     const search = String(f.search || '').trim().toLowerCase();
-    return (items || []).filter(item => {
+    return activeOpportunities(items, now).filter(item => {
       const haystack = [item.name, item.category, item.location, item.source, ...(item.topics || []), ...(item.audience || [])].join(' ').toLowerCase();
       if (search && !haystack.includes(search)) return false;
       if (f.status && f.status !== 'all' && item.status !== f.status) return false;
@@ -203,7 +201,7 @@
   }
 
   function initialState() {
-    return {version: 1, opportunities: clone(SEED_OPPORTUNITIES), talks: clone(SEED_TALKS)};
+    return {version: 2, opportunities: clone(SEED_OPPORTUNITIES), talks: clone(SEED_TALKS)};
   }
 
   function loadState(storage) {
@@ -213,7 +211,7 @@
     if (raw !== null) {
       try {
         const parsed = JSON.parse(raw);
-        if (parsed && parsed.version === 1 && Array.isArray(parsed.opportunities) && Array.isArray(parsed.talks)) return parsed;
+        if (parsed && parsed.version === 2 && Array.isArray(parsed.opportunities) && Array.isArray(parsed.talks)) return parsed;
       } catch (_) {}
     }
     return initialState();
@@ -234,5 +232,5 @@
     return id;
   }
 
-  return {STORAGE_KEY, STATUSES, SEED_OPPORTUNITIES, SEED_TALKS, EXPORT_FIELDS, deadlineState, matchTalk, bestTalk, filterOpportunities, toCsv, initialState, loadState, saveState, createId};
+  return {STORAGE_KEY, STATUSES, SEED_OPPORTUNITIES, SEED_TALKS, EXPORT_FIELDS, deadlineState, activeOpportunities, matchTalk, bestTalk, filterOpportunities, toCsv, initialState, loadState, saveState, createId};
 });
