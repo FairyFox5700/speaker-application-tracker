@@ -1,0 +1,10 @@
+{
+  "name": "speaker-application-tracker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local-first CFP and speaker application pipeline",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "check": "node --check tracker-core.js && node --check app.js && npm test"
+  }
+}

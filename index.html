@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A focused speaker application and CFP pipeline for agentic AI, Azure, cloud and developer audiences.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230878d1'/%3E%3Cpath d='M18 45V19h16c8 0 13 4 13 11S42 41 34 41h-8v4zm8-12h8c3 0 5-1 5-3s-2-3-5-3h-8z' fill='white'/%3E%3C/svg%3E">
+  <title>Speaker Application Tracker</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#pipeline">Skip to pipeline</a>
+  <main class="shell" data-testid="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">SPEAKING · CFP PIPELINE</p>
+        <h1>Speaker Application Tracker</h1>
+        <p class="lede">Agentic systems, Azure, AI engineering and developer platforms.</p>
+      </div>
+      <button class="primary" id="addButton" data-testid="add-opportunity" type="button">+ Add opportunity</button>
+    </header>
+
+    <section class="metrics" aria-label="Pipeline summary">
+      <article><span>Open CFPs</span><strong id="metricOpen">0</strong><small>future deadlines</small></article>
+      <article><span>Deadline passed</span><strong id="metricPassed">0</strong><small>review or archive</small></article>
+      <article><span>Drafting</span><strong id="metricDrafting">0</strong><small>proposals in progress</small></article>
+      <article><span>Submitted</span><strong id="metricSubmitted">0</strong><small>awaiting decisions</small></article>
+    </section>
+
+    <nav class="view-tabs" aria-label="Tracker views">
+      <button class="view-tab active" type="button" data-view="pipeline" aria-selected="true">Pipeline</button>
+      <button class="view-tab" type="button" data-view="talks" aria-selected="false">Talk ideas</button>
+    </nav>
+
+    <section id="pipeline" class="view active" aria-labelledby="pipeline-title">
+      <div class="section-heading">
+        <div><p class="kicker">OPPORTUNITIES</p><h2 id="pipeline-title">Application pipeline</h2></div>
+        <p id="resultCount" class="result-count" aria-live="polite"></p>
+      </div>
+
+      <form class="filterbar" id="filters" role="search" aria-label="Filter opportunities">
+        <label class="search-field"><span class="sr-only">Search opportunities</span><input id="search" data-testid="search" type="search" placeholder="Search conference, topic or location"></label>
+        <label><span class="sr-only">Application status</span><select id="statusFilter" data-testid="status-filter"><option value="all">All statuses</option></select></label>
+        <label><span class="sr-only">Deadline status</span><select id="deadlineFilter" data-testid="deadline-filter"><option value="all">All deadlines</option><option value="open">Open CFPs</option><option value="passed">Deadline passed</option><option value="today">Due today</option><option value="critical">1–7 days</option><option value="soon">8–21 days</option></select></label>
+        <label><span class="sr-only">Priority</span><select id="priorityFilter"><option value="all">All priorities</option><option>High</option><option>Medium</option><option>Low</option></select></label>
+        <button class="quiet" id="clearFilters" data-testid="clear-filters" type="button">Clear</button>
+      </form>
+
+      <div id="opportunityList" class="opportunity-list" data-testid="opportunity-list"></div>
+      <div id="emptyState" class="empty-state" data-testid="empty-state" hidden>
+        <h3>No opportunities match</h3>
+        <p>Clear the filters or add a new CFP.</p>
+        <button class="quiet" id="emptyClear" type="button">Clear filters</button>
+      </div>
+    </section>
+
+    <section id="talks" class="view" aria-labelledby="talks-title" hidden>
+      <div class="section-heading"><div><p class="kicker">REUSABLE PROPOSALS</p><h2 id="talks-title">Talk ideas</h2></div></div>
+      <div id="talkList" class="talk-grid"></div>
+    </section>
+
+    <footer class="footer-tools">
+      <div><strong>Local-first</strong><span>Data stays in this browser.</span></div>
+      <div class="footer-actions">
+        <button class="quiet" id="exportJson" data-testid="export-json" type="button">Export JSON</button>
+        <button class="quiet" id="exportCsv" data-testid="export-csv" type="button">Export CSV</button>
+        <label class="quiet file-button" for="importJson">Import JSON</label><input id="importJson" type="file" accept="application/json" hidden>
+        <button class="danger-link" id="resetData" type="button">Reset seed data</button>
+      </div>
+    </footer>
+  </main>
+
+  <dialog id="editorDialog" aria-labelledby="editorTitle">
+    <form id="opportunityForm" data-testid="opportunity-form" method="dialog">
+      <div class="dialog-head"><div><p class="kicker">CFP RECORD</p><h2 id="editorTitle">Add opportunity</h2></div><button class="icon-button" id="closeEditor" type="button" aria-label="Close editor">×</button></div>
+      <input id="recordId" type="hidden">
+      <div class="form-grid">
+        <label class="span-2">Conference name<input id="nameField" name="name" required maxlength="160"></label>
+        <label>Category<input id="categoryField" name="category" required placeholder="AI conference"></label>
+        <label>Location<input id="locationField" name="location" required placeholder="Berlin, Germany · Online"></label>
+        <label>Event date<input id="eventDateField" name="eventDate" type="date" required></label>
+        <label>CFP deadline<input id="deadlineField" name="deadlineDate" type="date" required></label>
+        <label>Delivery mode<select id="modeField" name="deliveryMode"><option>In-person</option><option>Online</option><option>Hybrid</option></select></label>
+        <label>Application status<select id="statusField" name="status" data-testid="application-status"></select></label>
+        <label>Priority<select id="priorityField" name="priority"><option>High</option><option>Medium</option><option>Low</option></select></label>
+        <label>Source<input id="sourceField" name="source" required placeholder="confs.tech"></label>
+        <label class="span-2">Source / CFP URL<input id="sourceUrlField" name="sourceUrl" type="url" placeholder="https://"></label>
+        <label class="span-2">Topics <small>comma separated</small><input id="topicsField" name="topics" placeholder="Agentic AI, Azure, AI Engineering"></label>
+        <label class="span-2">Next action<input id="nextActionField" name="nextAction" placeholder="Draft abstract by Friday"></label>
+        <label class="span-2">Notes<textarea id="notesField" name="notes" rows="4"></textarea></label>
+      </div>
+      <div class="dialog-actions"><button class="danger-link" id="deleteButton" data-testid="delete-opportunity" type="button" hidden>Delete</button><span></span><button class="quiet" id="cancelEditor" data-testid="cancel-opportunity" type="button">Cancel</button><button class="primary" data-testid="save-opportunity" type="submit">Save opportunity</button></div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="tracker-core.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
