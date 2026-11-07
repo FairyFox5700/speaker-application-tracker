@@ -5,15 +5,15 @@
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
 
-  const STORAGE_KEY = 'speakerTracker:v4';
+  const STORAGE_KEY = 'speakerTracker:v5';
   const STATUSES = ['Not started', 'Drafting', 'Submitted', 'Accepted', 'Rejected', 'Withdrawn'];
 
-  const SEED_OPPORTUNITIES = [
+  const MANUAL_OPPORTUNITIES = [
     {
       id: 'data-saturday-denmark-2027', name: 'Data Saturday Denmark 2027', category: 'data and cloud conference',
       eventDate: '2027-01-30', deadlineDate: '2026-11-14', deadlineTimezone: 'Europe/Copenhagen',
       location: 'Microsoft HQ, Kongens Lyngby, Denmark', deliveryMode: 'In-person',
-      source: 'Official Sessionize CFP', sourceUrl: 'https://sessionize.com/datasatdk-2027/', sourceStatus: 'CFP open', sourceScore: 0.88,
+      sourceType: 'Sessionize public CFP', source: 'Official Sessionize CFP', sourceUrl: 'https://sessionize.com/datasatdk-2027/', sourceStatus: 'CFP open', sourceScore: 0.88,
       topics: ['Agentic AI', 'Azure', 'Cloud', 'Data', 'Microsoft Fabric'], audience: ['Developers', 'Architects', 'Data leaders'],
       status: 'Not started', priority: 'High', matchedTalkIds: ['reliable-agentic-workflows'],
       nextAction: 'Adapt the Azure agent workflow talk for a data-platform audience.', notes: '', submittedAt: '', confirmationReference: '', lastUpdated: '2026-10-31'
@@ -31,7 +31,7 @@
       id: 'fabcon-sqlcon-2027', name: 'FABCON & SQLCON 2027', category: 'Microsoft data and AI conference',
       eventDate: '2027-03-08', deadlineDate: '2026-11-22', deadlineTimezone: 'America/New_York',
       location: 'Atlanta, Georgia, U.S.', deliveryMode: 'In-person',
-      source: 'Official Sessionize CFP', sourceUrl: 'https://sessionize.com/fabcon-2027-sqlcon-2027-sessions/', sourceStatus: 'CFP open', sourceScore: 0.84,
+      sourceType: 'Sessionize public CFP', source: 'Official Sessionize CFP', sourceUrl: 'https://sessionize.com/fabcon-2027-sqlcon-2027-sessions/', sourceStatus: 'CFP open', sourceScore: 0.84,
       travelSupport: 'Travel sponsored', travelDetails: 'Non-Microsoft community speakers receive 3 hotel nights and a $500 travel stipend, plus a 3-day Gold Pass.',
       topics: ['Azure AI', 'Microsoft Fabric', 'Data', 'AI Engineering'], audience: ['Developers', 'Architects', 'Data leaders'],
       status: 'Not started', priority: 'Medium', matchedTalkIds: ['reliable-agentic-workflows'],
@@ -41,7 +41,7 @@
       id: 'azureday-poland-2027', name: 'AzureDay Poland 2027', category: 'Azure and AI conference',
       eventDate: '2027-03-11', deadlineDate: '2026-11-30', deadlineTimezone: 'Europe/Warsaw',
       location: 'Warsaw, Poland', deliveryMode: 'In-person',
-      source: 'Official Sessionize CFP', sourceUrl: 'https://sessionize.com/azureday-poland-2027/', sourceStatus: 'CFP open', sourceScore: 0.97,
+      sourceType: 'Sessionize public CFP', source: 'Official Sessionize CFP', sourceUrl: 'https://sessionize.com/azureday-poland-2027/', sourceStatus: 'CFP open', sourceScore: 0.97,
       travelSupport: 'Travel sponsored', travelDetails: 'Accepted speakers can receive up to €450 toward transportation and up to 2 hotel nights, if needed.',
       topics: ['Agentic AI', 'Azure', 'Microsoft Foundry', 'Cloud', 'AI Engineering'], audience: ['Developers', 'Architects'],
       status: 'Not started', priority: 'High', matchedTalkIds: ['reliable-agentic-workflows'],
@@ -51,7 +51,7 @@
       id: 'ai-context-new-york-2027', name: 'AI Context New York', category: 'agentic AI conference',
       eventDate: '2027-03-16', deadlineDate: '2027-01-04', deadlineTimezone: 'America/New_York',
       location: 'New York, U.S.', deliveryMode: 'In-person',
-      source: 'Official Sessionize CFP', sourceUrl: 'https://sessionize.com/ai-context-ny-co/', sourceStatus: 'CFP open', sourceScore: 0.96,
+      sourceType: 'Sessionize public CFP', source: 'Official Sessionize CFP', sourceUrl: 'https://sessionize.com/ai-context-ny-co/', sourceStatus: 'CFP open', sourceScore: 0.96,
       travelSupport: 'Not covered', travelDetails: 'The official CFP states that travel and accommodation expenses are not covered.',
       topics: ['Agentic AI', 'Enterprise AI', 'AI Infrastructure', 'Protocols'], audience: ['Developers', 'Architects', 'Engineering leaders'],
       status: 'Not started', priority: 'High', matchedTalkIds: ['human-loop-multi-agent'],
@@ -61,7 +61,7 @@
       id: 'optimized-ai-conference-2027', name: 'Optimized AI Conference 2027', category: 'applied AI conference',
       eventDate: '2027-03-31', deadlineDate: '2027-02-28', deadlineTimezone: 'America/New_York',
       location: 'Atlanta, Georgia, U.S.', deliveryMode: 'In-person',
-      source: 'Official Sessionize CFP', sourceUrl: 'https://sessionize.com/OAIConference-2027/', sourceStatus: 'CFP open', sourceScore: 0.95,
+      sourceType: 'Sessionize public CFP', source: 'Official Sessionize CFP', sourceUrl: 'https://sessionize.com/OAIConference-2027/', sourceStatus: 'CFP open', sourceScore: 0.95,
       topics: ['Agentic AI', 'LLM Ops', 'RAG', 'AI Engineering'], audience: ['Developers', 'Engineering leaders'],
       status: 'Not started', priority: 'High', matchedTalkIds: ['copilot-to-production'],
       nextAction: 'Develop measurable business outcomes and evaluation examples.', notes: '', submittedAt: '', confirmationReference: '', lastUpdated: '2026-10-31'
@@ -70,7 +70,7 @@
       id: 'cloud-code-oost', name: 'Cloud & Code Oost', category: 'developer meetup series',
       eventDate: '2027-02-01', deadlineDate: '2027-09-22', deadlineTimezone: 'Europe/Amsterdam',
       location: 'Doetinchem, Netherlands', deliveryMode: 'In-person',
-      source: 'Official Sessionize CFP', sourceUrl: 'https://sessionize.com/cloudcodeoost/', sourceStatus: 'Rolling CFP open', sourceScore: 0.9,
+      sourceType: 'Sessionize public CFP', source: 'Official Sessionize CFP', sourceUrl: 'https://sessionize.com/cloudcodeoost/', sourceStatus: 'Rolling CFP open', sourceScore: 0.9,
       travelSupport: 'Partial / conditional', travelDetails: 'Flights are not covered; hotel coverage depends on the situation. Dinner is provided.',
       topics: ['Agentic AI', 'Azure', 'Cloud', 'Developer Tools', 'Software Architecture'], audience: ['Developers', 'Architects'],
       status: 'Not started', priority: 'Medium', matchedTalkIds: ['reliable-agentic-workflows'],
@@ -115,6 +115,22 @@
       nextAction: 'Contact the user group and offer the production Copilot evaluation talk.', notes: '', submittedAt: '', confirmationReference: '', lastUpdated: '2026-11-07'
     }
   ];
+
+  let generatedSessionize = {items: []};
+  if (typeof globalThis !== 'undefined' && globalThis.SessionizePublicOpportunities) {
+    generatedSessionize = globalThis.SessionizePublicOpportunities;
+  } else if (typeof require === 'function') {
+    try { generatedSessionize = require('./sessionize-opportunities.js'); } catch (_) {}
+  }
+
+  const opportunityMap = new Map();
+  [...MANUAL_OPPORTUNITIES, ...(generatedSessionize.items || [])].forEach(item => {
+    const urlKey = String(item.sourceUrl || '').toLowerCase().replace(/\/$/, '');
+    const nameKey = String(item.name || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+    const key = urlKey || nameKey;
+    if (!opportunityMap.has(key)) opportunityMap.set(key, item);
+  });
+  const SEED_OPPORTUNITIES = [...opportunityMap.values()];
 
   const SEED_TALKS = [
     {
@@ -244,7 +260,7 @@
   }
 
   function initialState() {
-    return {version: 4, opportunities: clone(SEED_OPPORTUNITIES), talks: clone(SEED_TALKS)};
+    return {version: 5, opportunities: clone(SEED_OPPORTUNITIES), talks: clone(SEED_TALKS), dismissedIds: []};
   }
 
   function loadState(storage) {
@@ -254,7 +270,21 @@
     if (raw !== null) {
       try {
         const parsed = JSON.parse(raw);
-        if (parsed && parsed.version === 4 && Array.isArray(parsed.opportunities) && Array.isArray(parsed.talks)) return parsed;
+        if (parsed && parsed.version === 5 && Array.isArray(parsed.opportunities) && Array.isArray(parsed.talks)) {
+          const dismissed = new Set(Array.isArray(parsed.dismissedIds) ? parsed.dismissedIds : []);
+          const catalogIds = new Set(SEED_OPPORTUNITIES.map(item => item.id));
+          const savedById = new Map(parsed.opportunities.map(item => [item.id, item]));
+          const mutableFields = ['status', 'priority', 'nextAction', 'notes', 'submittedAt', 'confirmationReference'];
+          const catalog = SEED_OPPORTUNITIES.filter(item => !dismissed.has(item.id)).map(item => {
+            const saved = savedById.get(item.id);
+            if (!saved) return clone(item);
+            const merged = {...item};
+            mutableFields.forEach(field => { if (saved[field] !== undefined) merged[field] = saved[field]; });
+            return merged;
+          });
+          const custom = parsed.opportunities.filter(item => !catalogIds.has(item.id) && !dismissed.has(item.id));
+          return {...parsed, opportunities: [...catalog, ...custom], dismissedIds: [...dismissed]};
+        }
       } catch (_) {}
     }
     return initialState();

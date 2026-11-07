@@ -5,10 +5,10 @@ const core = require('../tracker-core.js');
 
 const NOW = '2026-10-31T12:00:00Z';
 
-test('ships only verified CFP opportunities whose deadlines have not passed', () => {
-  assert.equal(core.SEED_OPPORTUNITIES.length, 11);
+test('ships the curated opportunities plus the generated Sessionize catalog', () => {
+  assert.equal(core.SEED_OPPORTUNITIES.length > 100, true);
   assert.deepEqual(
-    core.SEED_OPPORTUNITIES.map(({name, eventDate, deadlineDate}) => ({name, eventDate, deadlineDate})),
+    core.SEED_OPPORTUNITIES.slice(0, 11).map(({name, eventDate, deadlineDate}) => ({name, eventDate, deadlineDate})),
     [
       {name: 'Data Saturday Denmark 2027', eventDate: '2027-01-30', deadlineDate: '2026-11-14'},
       {name: 'TDX 2027', eventDate: '2027-03-10', deadlineDate: '2026-11-16'},
@@ -59,16 +59,26 @@ test('CSV export round-trips commas, quotes, multiline text, and unicode', () =>
 });
 
 test('empty persisted opportunities are not reseeded', () => {
-  const storage = {getItem: () => JSON.stringify({version: 4, opportunities: [], talks: []})};
+  const storage = {getItem: () => JSON.stringify({version: 5, opportunities: [], talks: [], dismissedIds: core.SEED_OPPORTUNITIES.map(item => item.id)})};
   const state = core.loadState(storage);
   assert.deepEqual(state.opportunities, []);
   assert.deepEqual(state.talks, []);
 });
 
+test('catalog refresh adds new CFPs without overriding status or resurrecting dismissals', () => {
+  const first = {...core.SEED_OPPORTUNITIES[0], status: 'Drafting'};
+  const dismissed = core.SEED_OPPORTUNITIES[1].id;
+  const storage = {getItem: () => JSON.stringify({version: 5, opportunities: [first], talks: [], dismissedIds: [dismissed]})};
+  const state = core.loadState(storage);
+  assert.equal(state.opportunities.find(item => item.id === first.id).status, 'Drafting');
+  assert.equal(state.opportunities.some(item => item.id === dismissed), false);
+  assert.equal(state.opportunities.some(item => item.id === core.SEED_OPPORTUNITIES[2].id), true);
+});
+
 test('active-only view removes opportunities once their deadline passes', () => {
   const items = [...core.SEED_OPPORTUNITIES, {id: 'closed', deadlineDate: '2026-10-30'}];
   const active = core.activeOpportunities(items, NOW);
-  assert.equal(active.length, 11);
+  assert.equal(active.length, core.SEED_OPPORTUNITIES.length);
   assert.equal(active.some(item => item.id === 'closed'), false);
 });
 
@@ -91,8 +101,9 @@ test('includes the signed-in Sessionize recommendation', () => {
   assert.equal(recommendations[0].sourceUrl.includes('community.powerplatform.com'), true);
 });
 
-test('marks only verified travel-sponsored opportunities as funded', () => {
+test('marks verified travel-sponsored opportunities as funded', () => {
   const sponsored = core.SEED_OPPORTUNITIES.filter(item => item.travelSupport === 'Travel sponsored');
-  assert.deepEqual(sponsored.map(item => item.name), ['FABCON & SQLCON 2027', 'AzureDay Poland 2027']);
+  assert.equal(sponsored.some(item => item.name === 'FABCON & SQLCON 2027'), true);
+  assert.equal(sponsored.some(item => item.name === 'AzureDay Poland 2027'), true);
   assert.equal(sponsored.every(item => item.travelDetails.length > 10), true);
 });

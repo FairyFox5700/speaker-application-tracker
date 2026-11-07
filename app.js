@@ -54,7 +54,7 @@
     const deadline = core.deadlineState(item.deadlineDate);
     const match = core.bestTalk(item, state.talks);
     const sourceType = item.sourceType || 'Official CFP';
-    const sourceClass = sourceType === 'LinkedIn lead' ? 'linkedin' : sourceType === 'Sessionize recommendation' ? 'sessionize' : '';
+    const sourceClass = sourceType === 'LinkedIn lead' ? 'linkedin' : sourceType.startsWith('Sessionize') ? 'sessionize' : '';
     const travel = item.travelSupport || (item.deliveryMode === 'Online' ? 'Online / no trip' : 'Not stated');
     const travelClass = travel === 'Travel sponsored' ? 'funded' : travel === 'Partial / conditional' ? 'partial' : travel === 'Not covered' ? 'unfunded' : 'neutral';
     const actionLabel = sourceType === 'LinkedIn lead' ? 'View LinkedIn' : sourceType === 'Sessionize recommendation' ? 'Open group' : 'Open CFP';
@@ -168,6 +168,9 @@
     if (!activeEditId) return;
     const item = state.opportunities.find(x => x.id === activeEditId);
     if (!window.confirm(`Delete “${item.name}”?`)) return;
+    if (core.SEED_OPPORTUNITIES.some(seed => seed.id === activeEditId)) {
+      state.dismissedIds = [...new Set([...(state.dismissedIds || []), activeEditId])];
+    }
     state.opportunities = state.opportunities.filter(x => x.id !== activeEditId);
     persist('Opportunity deleted');
     closeEditor();
@@ -203,7 +206,7 @@
     if (!file) return;
     try {
       const parsed = JSON.parse(await file.text());
-      if (!parsed || parsed.version !== 4 || !Array.isArray(parsed.opportunities) || !Array.isArray(parsed.talks)) throw new Error('Unsupported file');
+      if (!parsed || parsed.version !== 5 || !Array.isArray(parsed.opportunities) || !Array.isArray(parsed.talks)) throw new Error('Unsupported file');
       state = {...parsed, opportunities: core.activeOpportunities(parsed.opportunities)}; persist('Backup imported'); clearFilters();
     } catch (error) {
       window.alert(`Could not import this file: ${error.message}`);
