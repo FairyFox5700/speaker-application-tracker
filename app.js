@@ -7,7 +7,7 @@
   const $ = id => document.getElementById(id);
   const els = {
     list: $('opportunityList'), talks: $('talkList'), empty: $('emptyState'), count: $('resultCount'),
-    search: $('search'), statusFilter: $('statusFilter'), deadlineFilter: $('deadlineFilter'), priorityFilter: $('priorityFilter'),
+    search: $('search'), statusFilter: $('statusFilter'), sourceFilter: $('sourceFilter'), deadlineFilter: $('deadlineFilter'), priorityFilter: $('priorityFilter'),
     dialog: $('editorDialog'), form: $('opportunityForm'), toast: $('toast')
   };
 
@@ -38,7 +38,7 @@
   }
 
   function currentFilters() {
-    return {search: els.search.value, status: els.statusFilter.value, deadline: els.deadlineFilter.value, priority: els.priorityFilter.value};
+    return {search: els.search.value, status: els.statusFilter.value, source: els.sourceFilter.value, deadline: els.deadlineFilter.value, priority: els.priorityFilter.value};
   }
 
   function renderMetrics() {
@@ -54,10 +54,10 @@
     const deadline = core.deadlineState(item.deadlineDate);
     const match = core.bestTalk(item, state.talks);
     return `<article class="opportunity-card" data-testid="opportunity-item" data-record-id="${escapeHtml(item.id)}">
-      <div class="opportunity-title"><span class="priority-dot ${escapeHtml(item.priority)}" aria-hidden="true"></span><div><h3>${escapeHtml(item.name)}</h3><p>${escapeHtml(item.category)} · ${escapeHtml(item.location)} · event ${dateLabel(item.eventDate)}</p></div></div>
+      <div class="opportunity-title"><span class="priority-dot ${escapeHtml(item.priority)}" aria-hidden="true"></span><div><span class="source-badge ${item.sourceType === 'LinkedIn lead' ? 'linkedin' : ''}">${escapeHtml(item.sourceType || 'Official CFP')}</span><h3>${escapeHtml(item.name)}</h3><p>${escapeHtml(item.category)} · ${escapeHtml(item.location)} · event ${dateLabel(item.eventDate)}</p></div></div>
       <div class="status-cell"><span class="label">Application</span><select class="status-select" data-status-id="${escapeHtml(item.id)}" aria-label="Application status for ${escapeHtml(item.name)}">${statusOptions(item.status)}</select></div>
       <div class="deadline"><span class="label">CFP deadline</span><strong>${dateLabel(item.deadlineDate)}</strong><span class="deadline-badge ${deadline.key}">${escapeHtml(deadline.label)}</span></div>
-      <div class="card-actions"><a class="primary cfp-link" href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noopener">Open CFP</a><button class="quiet edit-button" data-edit-id="${escapeHtml(item.id)}" data-testid="edit-opportunity" type="button">Edit</button></div>
+      <div class="card-actions"><a class="primary cfp-link" href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noopener">${item.sourceType === 'LinkedIn lead' ? 'View LinkedIn' : 'Open CFP'}</a><button class="quiet edit-button" data-edit-id="${escapeHtml(item.id)}" data-testid="edit-opportunity" type="button">Edit</button></div>
       <div class="talk-match"><span class="label">Best talk match</span>${match ? `<strong>${escapeHtml(match.talk.title)} <span class="score">${match.score}%</span></strong><small>${escapeHtml(match.reasons.slice(0,2).join(' · '))}</small>` : '<strong>No talk idea yet</strong>'}</div>
       <div class="next-action"><b>Next:</b> ${escapeHtml(item.nextAction || 'Choose a next action.')}</div>
     </article>`;
@@ -85,6 +85,7 @@
   function clearFilters() {
     els.search.value = '';
     els.statusFilter.value = 'all';
+    els.sourceFilter.value = 'all';
     els.deadlineFilter.value = 'all';
     els.priorityFilter.value = 'all';
     render();
@@ -100,6 +101,7 @@
     $('modeField').value = item?.deliveryMode || 'Hybrid';
     $('statusField').value = item?.status || 'Not started';
     $('priorityField').value = item?.priority || 'Medium';
+    $('sourceTypeField').value = item?.sourceType || 'Official CFP';
     $('sourceField').value = item?.source || '';
     $('sourceUrlField').value = item?.sourceUrl || '';
     $('topicsField').value = (item?.topics || []).join(', ');
@@ -131,7 +133,7 @@
       id: old?.id || core.createId($('nameField').value, state.opportunities),
       name: $('nameField').value.trim(), category: $('categoryField').value.trim(), location: $('locationField').value.trim(),
       eventDate: $('eventDateField').value, deadlineDate: $('deadlineField').value, deadlineTimezone: old?.deadlineTimezone || 'UTC',
-      deliveryMode: $('modeField').value, status, priority: $('priorityField').value,
+      deliveryMode: $('modeField').value, status, priority: $('priorityField').value, sourceType: $('sourceTypeField').value,
       source: $('sourceField').value.trim(), sourceUrl: $('sourceUrlField').value.trim(), sourceStatus: old?.sourceStatus || '', sourceScore: old?.sourceScore ?? '',
       topics: $('topicsField').value.split(',').map(x => x.trim()).filter(Boolean), audience: old?.audience || ['Developers'],
       matchedTalkIds: old?.matchedTalkIds || [], nextAction: $('nextActionField').value.trim(), notes: $('notesField').value,
@@ -193,7 +195,7 @@
     if (!file) return;
     try {
       const parsed = JSON.parse(await file.text());
-      if (!parsed || parsed.version !== 2 || !Array.isArray(parsed.opportunities) || !Array.isArray(parsed.talks)) throw new Error('Unsupported file');
+      if (!parsed || parsed.version !== 3 || !Array.isArray(parsed.opportunities) || !Array.isArray(parsed.talks)) throw new Error('Unsupported file');
       state = {...parsed, opportunities: core.activeOpportunities(parsed.opportunities)}; persist('Backup imported'); clearFilters();
     } catch (error) {
       window.alert(`Could not import this file: ${error.message}`);

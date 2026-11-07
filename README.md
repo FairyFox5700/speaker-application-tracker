@@ -4,14 +4,16 @@ A local-first CFP and speaker-application pipeline focused on agentic systems, A
 
 ## Features
 
-- Seven verified, currently open CFP opportunities matched to the niche
+- Ten verified, currently open opportunities matched to the niche
+- Three LinkedIn speaker leads with explicit future deadlines and direct source links
+- Source filter for official CFPs versus LinkedIn leads
 - Passed deadlines are excluded automatically
 - Computed deadline urgency (never stored as a stale status)
 - Application pipeline statuses and inline status updates
 - Deterministic talk-to-CFP matching with visible reasons
 - Search and combined status/deadline/priority filters
 - Add, edit, and delete opportunities
-- Browser persistence under `speakerTracker:v2`
+- Browser persistence under `speakerTracker:v3`
 - JSON backup/import and RFC 4180-compatible CSV export
 - Responsive single-column mobile cards
 

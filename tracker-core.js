@@ -5,7 +5,7 @@
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
 
-  const STORAGE_KEY = 'speakerTracker:v2';
+  const STORAGE_KEY = 'speakerTracker:v3';
   const STATUSES = ['Not started', 'Drafting', 'Submitted', 'Accepted', 'Rejected', 'Withdrawn'];
 
   const SEED_OPPORTUNITIES = [
@@ -71,6 +71,33 @@
       topics: ['Agentic AI', 'Azure', 'Cloud', 'Developer Tools', 'Software Architecture'], audience: ['Developers', 'Architects'],
       status: 'Not started', priority: 'Medium', matchedTalkIds: ['reliable-agentic-workflows'],
       nextAction: 'Offer a practical 45-minute Azure agent engineering session.', notes: '', submittedAt: '', confirmationReference: '', lastUpdated: '2026-10-31'
+    },
+    {
+      id: 'datatune-2027-linkedin', name: 'DataTune 2027', category: 'data and AI conference',
+      eventDate: '2027-03-12', deadlineDate: '2026-11-15', deadlineTimezone: 'America/Chicago',
+      location: 'Nashville, Tennessee, U.S.', deliveryMode: 'In-person', sourceType: 'LinkedIn lead',
+      source: 'LinkedIn — DataTune is looking for speakers', sourceUrl: 'https://linkedin.com/company/datatune-conf', sourceStatus: 'Speaker call open', sourceScore: 0.86,
+      topics: ['Agentic AI', 'Data', 'AI Engineering', 'Cloud'], audience: ['Developers', 'Data leaders', 'Engineering leaders'],
+      status: 'Not started', priority: 'High', matchedTalkIds: ['reliable-agentic-workflows'],
+      nextAction: 'Submit a practical data-and-agent implementation story before 15 November.', notes: '', submittedAt: '', confirmationReference: '', lastUpdated: '2026-10-31'
+    },
+    {
+      id: 'dreamole-2027-linkedin', name: 'dreamOlé 2027', category: 'Salesforce developer conference',
+      eventDate: '2027-03-12', deadlineDate: '2026-12-15', deadlineTimezone: 'Europe/Madrid',
+      location: 'Spain', deliveryMode: 'In-person', sourceType: 'LinkedIn lead',
+      source: 'LinkedIn — dreamOlé is looking for speakers', sourceUrl: 'https://www.linkedin.com/posts/dreamole_dreamol%C3%A927-callforspeakers-salesforcedevs-activity-7520757540834492416-9_UM', sourceStatus: 'Speaker call open', sourceScore: 0.8,
+      topics: ['Agentic AI', 'Agentforce', 'Data Cloud', 'AI Engineering', 'Architecture'], audience: ['Developers', 'Architects'],
+      status: 'Not started', priority: 'Medium', matchedTalkIds: ['human-loop-multi-agent'],
+      nextAction: 'Translate the enterprise-agent talk to Agentforce and Data Cloud.', notes: '', submittedAt: '', confirmationReference: '', lastUpdated: '2026-10-31'
+    },
+    {
+      id: 'starwest-2027-linkedin', name: 'STARWEST 2027', category: 'software quality and testing conference',
+      eventDate: '2027-09-19', deadlineDate: '2027-01-31', deadlineTimezone: 'America/Los_Angeles',
+      location: 'Anaheim, California, U.S. · Online', deliveryMode: 'Hybrid', sourceType: 'LinkedIn lead',
+      source: 'LinkedIn — Coveros is looking for STARWEST speakers', sourceUrl: 'https://linkedin.com/company/coveros', sourceStatus: 'Speaker call open', sourceScore: 0.74,
+      topics: ['AI Engineering', 'Evaluation', 'Software Testing', 'Developer Tools'], audience: ['Developers', 'Engineering leaders'],
+      status: 'Not started', priority: 'Medium', matchedTalkIds: ['copilot-to-production'],
+      nextAction: 'Pitch AI evaluation, guardrails and quality engineering for production copilots.', notes: '', submittedAt: '', confirmationReference: '', lastUpdated: '2026-10-31'
     }
   ];
 
@@ -175,10 +202,11 @@
     const f = filters || {};
     const search = String(f.search || '').trim().toLowerCase();
     return activeOpportunities(items, now).filter(item => {
-      const haystack = [item.name, item.category, item.location, item.source, ...(item.topics || []), ...(item.audience || [])].join(' ').toLowerCase();
+      const haystack = [item.name, item.category, item.location, item.sourceType, item.source, ...(item.topics || []), ...(item.audience || [])].join(' ').toLowerCase();
       if (search && !haystack.includes(search)) return false;
       if (f.status && f.status !== 'all' && item.status !== f.status) return false;
       if (f.priority && f.priority !== 'all' && item.priority !== f.priority) return false;
+      if (f.source && f.source !== 'all' && (item.sourceType || 'Official CFP') !== f.source) return false;
       if (f.mode && f.mode !== 'all' && item.deliveryMode !== f.mode) return false;
       if (f.deadline && f.deadline !== 'all') {
         const key = deadlineState(item.deadlineDate, now).key;
@@ -194,14 +222,14 @@
     return /[",\r\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
   }
 
-  const EXPORT_FIELDS = ['id', 'name', 'category', 'eventDate', 'deadlineDate', 'deadlineTimezone', 'location', 'deliveryMode', 'source', 'sourceUrl', 'sourceStatus', 'sourceScore', 'topics', 'audience', 'status', 'priority', 'nextAction', 'notes', 'submittedAt', 'confirmationReference', 'lastUpdated'];
+  const EXPORT_FIELDS = ['id', 'name', 'category', 'eventDate', 'deadlineDate', 'deadlineTimezone', 'location', 'deliveryMode', 'sourceType', 'source', 'sourceUrl', 'sourceStatus', 'sourceScore', 'topics', 'audience', 'status', 'priority', 'nextAction', 'notes', 'submittedAt', 'confirmationReference', 'lastUpdated'];
 
   function toCsv(items) {
     return [EXPORT_FIELDS.join(','), ...(items || []).map(item => EXPORT_FIELDS.map(field => csvEscape(item[field])).join(','))].join('\r\n') + '\r\n';
   }
 
   function initialState() {
-    return {version: 2, opportunities: clone(SEED_OPPORTUNITIES), talks: clone(SEED_TALKS)};
+    return {version: 3, opportunities: clone(SEED_OPPORTUNITIES), talks: clone(SEED_TALKS)};
   }
 
   function loadState(storage) {
@@ -211,7 +239,7 @@
     if (raw !== null) {
       try {
         const parsed = JSON.parse(raw);
-        if (parsed && parsed.version === 2 && Array.isArray(parsed.opportunities) && Array.isArray(parsed.talks)) return parsed;
+        if (parsed && parsed.version === 3 && Array.isArray(parsed.opportunities) && Array.isArray(parsed.talks)) return parsed;
       } catch (_) {}
     }
     return initialState();
