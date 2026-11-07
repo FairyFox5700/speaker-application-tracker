@@ -4,16 +4,18 @@ A local-first CFP and speaker-application pipeline focused on agentic systems, A
 
 ## Features
 
-- Ten verified, currently open opportunities matched to the niche
+- Eleven verified, currently open opportunities matched to the niche
 - Three LinkedIn speaker leads with explicit future deadlines and direct source links
-- Source filter for official CFPs versus LinkedIn leads
+- One signed-in Sessionize Discover recommendation
+- Verified travel-support labels, including two trip-sponsored conferences
+- Source filter for official CFPs, LinkedIn leads, and Sessionize recommendations
 - Passed deadlines are excluded automatically
 - Computed deadline urgency (never stored as a stale status)
 - Application pipeline statuses and inline status updates
 - Deterministic talk-to-CFP matching with visible reasons
 - Search and combined status/deadline/priority filters
 - Add, edit, and delete opportunities
-- Browser persistence under `speakerTracker:v3`
+- Browser persistence under `speakerTracker:v4`
 - JSON backup/import and RFC 4180-compatible CSV export
 - Responsive single-column mobile cards
 

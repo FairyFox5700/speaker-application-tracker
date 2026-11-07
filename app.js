@@ -53,13 +53,18 @@
   function cardHtml(item) {
     const deadline = core.deadlineState(item.deadlineDate);
     const match = core.bestTalk(item, state.talks);
+    const sourceType = item.sourceType || 'Official CFP';
+    const sourceClass = sourceType === 'LinkedIn lead' ? 'linkedin' : sourceType === 'Sessionize recommendation' ? 'sessionize' : '';
+    const travel = item.travelSupport || (item.deliveryMode === 'Online' ? 'Online / no trip' : 'Not stated');
+    const travelClass = travel === 'Travel sponsored' ? 'funded' : travel === 'Partial / conditional' ? 'partial' : travel === 'Not covered' ? 'unfunded' : 'neutral';
+    const actionLabel = sourceType === 'LinkedIn lead' ? 'View LinkedIn' : sourceType === 'Sessionize recommendation' ? 'Open group' : 'Open CFP';
     return `<article class="opportunity-card" data-testid="opportunity-item" data-record-id="${escapeHtml(item.id)}">
-      <div class="opportunity-title"><span class="priority-dot ${escapeHtml(item.priority)}" aria-hidden="true"></span><div><span class="source-badge ${item.sourceType === 'LinkedIn lead' ? 'linkedin' : ''}">${escapeHtml(item.sourceType || 'Official CFP')}</span><h3>${escapeHtml(item.name)}</h3><p>${escapeHtml(item.category)} · ${escapeHtml(item.location)} · event ${dateLabel(item.eventDate)}</p></div></div>
+      <div class="opportunity-title"><span class="priority-dot ${escapeHtml(item.priority)}" aria-hidden="true"></span><div><div class="record-badges"><span class="source-badge ${sourceClass}">${escapeHtml(sourceType)}</span><span class="travel-badge ${travelClass}">${travel === 'Travel sponsored' ? 'Trip sponsored' : escapeHtml(travel)}</span></div><h3>${escapeHtml(item.name)}</h3><p>${escapeHtml(item.category)} · ${escapeHtml(item.location)} · event ${dateLabel(item.eventDate)}</p></div></div>
       <div class="status-cell"><span class="label">Application</span><select class="status-select" data-status-id="${escapeHtml(item.id)}" aria-label="Application status for ${escapeHtml(item.name)}">${statusOptions(item.status)}</select></div>
       <div class="deadline"><span class="label">CFP deadline</span><strong>${dateLabel(item.deadlineDate)}</strong><span class="deadline-badge ${deadline.key}">${escapeHtml(deadline.label)}</span></div>
-      <div class="card-actions"><a class="primary cfp-link" href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noopener">${item.sourceType === 'LinkedIn lead' ? 'View LinkedIn' : 'Open CFP'}</a><button class="quiet edit-button" data-edit-id="${escapeHtml(item.id)}" data-testid="edit-opportunity" type="button">Edit</button></div>
+      <div class="card-actions"><a class="primary cfp-link" href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noopener">${actionLabel}</a><button class="quiet edit-button" data-edit-id="${escapeHtml(item.id)}" data-testid="edit-opportunity" type="button">Edit</button></div>
       <div class="talk-match"><span class="label">Best talk match</span>${match ? `<strong>${escapeHtml(match.talk.title)} <span class="score">${match.score}%</span></strong><small>${escapeHtml(match.reasons.slice(0,2).join(' · '))}</small>` : '<strong>No talk idea yet</strong>'}</div>
-      <div class="next-action"><b>Next:</b> ${escapeHtml(item.nextAction || 'Choose a next action.')}</div>
+      <div class="next-action"><span><b>Travel:</b> ${escapeHtml(item.travelDetails || travel)}</span><span><b>Next:</b> ${escapeHtml(item.nextAction || 'Choose a next action.')}</span></div>
     </article>`;
   }
 
@@ -104,6 +109,8 @@
     $('sourceTypeField').value = item?.sourceType || 'Official CFP';
     $('sourceField').value = item?.source || '';
     $('sourceUrlField').value = item?.sourceUrl || '';
+    $('travelSupportField').value = item?.travelSupport || (item?.deliveryMode === 'Online' ? 'Online / no trip' : 'Not stated');
+    $('travelDetailsField').value = item?.travelDetails || '';
     $('topicsField').value = (item?.topics || []).join(', ');
     $('nextActionField').value = item?.nextAction || '';
     $('notesField').value = item?.notes || '';
@@ -135,6 +142,7 @@
       eventDate: $('eventDateField').value, deadlineDate: $('deadlineField').value, deadlineTimezone: old?.deadlineTimezone || 'UTC',
       deliveryMode: $('modeField').value, status, priority: $('priorityField').value, sourceType: $('sourceTypeField').value,
       source: $('sourceField').value.trim(), sourceUrl: $('sourceUrlField').value.trim(), sourceStatus: old?.sourceStatus || '', sourceScore: old?.sourceScore ?? '',
+      travelSupport: $('travelSupportField').value, travelDetails: $('travelDetailsField').value.trim(),
       topics: $('topicsField').value.split(',').map(x => x.trim()).filter(Boolean), audience: old?.audience || ['Developers'],
       matchedTalkIds: old?.matchedTalkIds || [], nextAction: $('nextActionField').value.trim(), notes: $('notesField').value,
       submittedAt: status === 'Submitted' ? (old?.submittedAt || new Date().toISOString().slice(0,10)) : (old?.submittedAt || ''),
@@ -195,7 +203,7 @@
     if (!file) return;
     try {
       const parsed = JSON.parse(await file.text());
-      if (!parsed || parsed.version !== 3 || !Array.isArray(parsed.opportunities) || !Array.isArray(parsed.talks)) throw new Error('Unsupported file');
+      if (!parsed || parsed.version !== 4 || !Array.isArray(parsed.opportunities) || !Array.isArray(parsed.talks)) throw new Error('Unsupported file');
       state = {...parsed, opportunities: core.activeOpportunities(parsed.opportunities)}; persist('Backup imported'); clearFilters();
     } catch (error) {
       window.alert(`Could not import this file: ${error.message}`);

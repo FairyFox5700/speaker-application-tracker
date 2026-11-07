@@ -41,7 +41,7 @@
       <form class="filterbar" id="filters" role="search" aria-label="Filter opportunities">
         <label class="search-field"><span class="sr-only">Search opportunities</span><input id="search" data-testid="search" type="search" placeholder="Search conference, topic or location"></label>
         <label><span class="sr-only">Application status</span><select id="statusFilter" data-testid="status-filter"><option value="all">All statuses</option></select></label>
-        <label><span class="sr-only">Opportunity source</span><select id="sourceFilter"><option value="all">All sources</option><option value="LinkedIn lead">LinkedIn leads</option><option value="Official CFP">Official CFPs</option></select></label>
+        <label><span class="sr-only">Opportunity source</span><select id="sourceFilter"><option value="all">All sources</option><option value="LinkedIn lead">LinkedIn leads</option><option value="Sessionize recommendation">Sessionize recommendations</option><option value="Official CFP">Official CFPs</option></select></label>
         <label><span class="sr-only">Deadline status</span><select id="deadlineFilter" data-testid="deadline-filter"><option value="all">All open deadlines</option><option value="today">Due today</option><option value="critical">1–7 days</option><option value="soon">8–21 days</option><option value="upcoming">22–60 days</option><option value="later">Later</option></select></label>
         <label><span class="sr-only">Priority</span><select id="priorityFilter"><option value="all">All priorities</option><option>High</option><option>Medium</option><option>Low</option></select></label>
         <button class="quiet" id="clearFilters" data-testid="clear-filters" type="button">Clear</button>
@@ -84,9 +84,11 @@
         <label>Delivery mode<select id="modeField" name="deliveryMode"><option>In-person</option><option>Online</option><option>Hybrid</option></select></label>
         <label>Application status<select id="statusField" name="status" data-testid="application-status"></select></label>
         <label>Priority<select id="priorityField" name="priority"><option>High</option><option>Medium</option><option>Low</option></select></label>
-        <label>Source type<select id="sourceTypeField" name="sourceType"><option>Official CFP</option><option>LinkedIn lead</option></select></label>
+        <label>Source type<select id="sourceTypeField" name="sourceType"><option>Official CFP</option><option>LinkedIn lead</option><option>Sessionize recommendation</option></select></label>
         <label>Source<input id="sourceField" name="source" required placeholder="confs.tech"></label>
         <label class="span-2">Source / CFP URL<input id="sourceUrlField" name="sourceUrl" type="url" placeholder="https://"></label>
+        <label>Travel support<select id="travelSupportField" name="travelSupport"><option>Not stated</option><option>Travel sponsored</option><option>Partial / conditional</option><option>Not covered</option><option>Online / no trip</option></select></label>
+        <label>Travel details<input id="travelDetailsField" name="travelDetails" placeholder="e.g. hotel plus €450 travel"></label>
         <label class="span-2">Topics <small>comma separated</small><input id="topicsField" name="topics" placeholder="Agentic AI, Azure, AI Engineering"></label>
         <label class="span-2">Next action<input id="nextActionField" name="nextAction" placeholder="Draft abstract by Friday"></label>
         <label class="span-2">Notes<textarea id="notesField" name="notes" rows="4"></textarea></label>

@@ -5,7 +5,7 @@
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
 
-  const STORAGE_KEY = 'speakerTracker:v3';
+  const STORAGE_KEY = 'speakerTracker:v4';
   const STATUSES = ['Not started', 'Drafting', 'Submitted', 'Accepted', 'Rejected', 'Withdrawn'];
 
   const SEED_OPPORTUNITIES = [
@@ -32,6 +32,7 @@
       eventDate: '2027-03-08', deadlineDate: '2026-11-22', deadlineTimezone: 'America/New_York',
       location: 'Atlanta, Georgia, U.S.', deliveryMode: 'In-person',
       source: 'Official Sessionize CFP', sourceUrl: 'https://sessionize.com/fabcon-2027-sqlcon-2027-sessions/', sourceStatus: 'CFP open', sourceScore: 0.84,
+      travelSupport: 'Travel sponsored', travelDetails: 'Non-Microsoft community speakers receive 3 hotel nights and a $500 travel stipend, plus a 3-day Gold Pass.',
       topics: ['Azure AI', 'Microsoft Fabric', 'Data', 'AI Engineering'], audience: ['Developers', 'Architects', 'Data leaders'],
       status: 'Not started', priority: 'Medium', matchedTalkIds: ['reliable-agentic-workflows'],
       nextAction: 'Connect the agent demo to Fabric data and Azure AI.', notes: '', submittedAt: '', confirmationReference: '', lastUpdated: '2026-10-31'
@@ -41,6 +42,7 @@
       eventDate: '2027-03-11', deadlineDate: '2026-11-30', deadlineTimezone: 'Europe/Warsaw',
       location: 'Warsaw, Poland', deliveryMode: 'In-person',
       source: 'Official Sessionize CFP', sourceUrl: 'https://sessionize.com/azureday-poland-2027/', sourceStatus: 'CFP open', sourceScore: 0.97,
+      travelSupport: 'Travel sponsored', travelDetails: 'Accepted speakers can receive up to €450 toward transportation and up to 2 hotel nights, if needed.',
       topics: ['Agentic AI', 'Azure', 'Microsoft Foundry', 'Cloud', 'AI Engineering'], audience: ['Developers', 'Architects'],
       status: 'Not started', priority: 'High', matchedTalkIds: ['reliable-agentic-workflows'],
       nextAction: 'Submit the reliable agentic workflows talk with a live Azure demo.', notes: '', submittedAt: '', confirmationReference: '', lastUpdated: '2026-10-31'
@@ -50,6 +52,7 @@
       eventDate: '2027-03-16', deadlineDate: '2027-01-04', deadlineTimezone: 'America/New_York',
       location: 'New York, U.S.', deliveryMode: 'In-person',
       source: 'Official Sessionize CFP', sourceUrl: 'https://sessionize.com/ai-context-ny-co/', sourceStatus: 'CFP open', sourceScore: 0.96,
+      travelSupport: 'Not covered', travelDetails: 'The official CFP states that travel and accommodation expenses are not covered.',
       topics: ['Agentic AI', 'Enterprise AI', 'AI Infrastructure', 'Protocols'], audience: ['Developers', 'Architects', 'Engineering leaders'],
       status: 'Not started', priority: 'High', matchedTalkIds: ['human-loop-multi-agent'],
       nextAction: 'Position the talk around scaling controlled agent systems in production.', notes: '', submittedAt: '', confirmationReference: '', lastUpdated: '2026-10-31'
@@ -68,6 +71,7 @@
       eventDate: '2027-02-01', deadlineDate: '2027-09-22', deadlineTimezone: 'Europe/Amsterdam',
       location: 'Doetinchem, Netherlands', deliveryMode: 'In-person',
       source: 'Official Sessionize CFP', sourceUrl: 'https://sessionize.com/cloudcodeoost/', sourceStatus: 'Rolling CFP open', sourceScore: 0.9,
+      travelSupport: 'Partial / conditional', travelDetails: 'Flights are not covered; hotel coverage depends on the situation. Dinner is provided.',
       topics: ['Agentic AI', 'Azure', 'Cloud', 'Developer Tools', 'Software Architecture'], audience: ['Developers', 'Architects'],
       status: 'Not started', priority: 'Medium', matchedTalkIds: ['reliable-agentic-workflows'],
       nextAction: 'Offer a practical 45-minute Azure agent engineering session.', notes: '', submittedAt: '', confirmationReference: '', lastUpdated: '2026-10-31'
@@ -95,9 +99,20 @@
       eventDate: '2027-09-19', deadlineDate: '2027-01-31', deadlineTimezone: 'America/Los_Angeles',
       location: 'Anaheim, California, U.S. · Online', deliveryMode: 'Hybrid', sourceType: 'LinkedIn lead',
       source: 'LinkedIn — Coveros is looking for STARWEST speakers', sourceUrl: 'https://linkedin.com/company/coveros', sourceStatus: 'Speaker call open', sourceScore: 0.74,
+      travelSupport: 'Not covered', travelDetails: 'The official speaker page states that travel expenses are not covered; conference registration is complimentary.',
       topics: ['AI Engineering', 'Evaluation', 'Software Testing', 'Developer Tools'], audience: ['Developers', 'Engineering leaders'],
       status: 'Not started', priority: 'Medium', matchedTalkIds: ['copilot-to-production'],
       nextAction: 'Pitch AI evaluation, guardrails and quality engineering for production copilots.', notes: '', submittedAt: '', confirmationReference: '', lastUpdated: '2026-10-31'
+    },
+    {
+      id: 'copilotverse-sessionize', name: 'Copilotverse Global User Group', category: 'Microsoft Copilot user group',
+      eventDate: '2026-12-18', deadlineDate: '2026-12-18', deadlineTimezone: 'UTC',
+      location: 'Online', deliveryMode: 'Online', sourceType: 'Sessionize recommendation',
+      source: 'Sessionize Discover — suggested for Iryna', sourceUrl: 'https://community.powerplatform.com/usergroups/details/?groupid=36e9c4e1-fa6b-f011-bec2-6045bdda2e78', sourceStatus: 'Speaker discovery active', sourceScore: 0.94,
+      travelSupport: 'Online / no trip', travelDetails: 'Online user group; no travel is required.',
+      topics: ['Agentic AI', 'Copilot Studio', 'Copilot Extensibility', 'GitHub Copilot', 'Microsoft 365 Copilot'], audience: ['Developers', 'Architects', 'Engineering leaders'],
+      status: 'Not started', priority: 'High', matchedTalkIds: ['copilot-to-production'],
+      nextAction: 'Contact the user group and offer the production Copilot evaluation talk.', notes: '', submittedAt: '', confirmationReference: '', lastUpdated: '2026-11-07'
     }
   ];
 
@@ -222,14 +237,14 @@
     return /[",\r\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
   }
 
-  const EXPORT_FIELDS = ['id', 'name', 'category', 'eventDate', 'deadlineDate', 'deadlineTimezone', 'location', 'deliveryMode', 'sourceType', 'source', 'sourceUrl', 'sourceStatus', 'sourceScore', 'topics', 'audience', 'status', 'priority', 'nextAction', 'notes', 'submittedAt', 'confirmationReference', 'lastUpdated'];
+  const EXPORT_FIELDS = ['id', 'name', 'category', 'eventDate', 'deadlineDate', 'deadlineTimezone', 'location', 'deliveryMode', 'sourceType', 'source', 'sourceUrl', 'sourceStatus', 'sourceScore', 'travelSupport', 'travelDetails', 'topics', 'audience', 'status', 'priority', 'nextAction', 'notes', 'submittedAt', 'confirmationReference', 'lastUpdated'];
 
   function toCsv(items) {
     return [EXPORT_FIELDS.join(','), ...(items || []).map(item => EXPORT_FIELDS.map(field => csvEscape(item[field])).join(','))].join('\r\n') + '\r\n';
   }
 
   function initialState() {
-    return {version: 3, opportunities: clone(SEED_OPPORTUNITIES), talks: clone(SEED_TALKS)};
+    return {version: 4, opportunities: clone(SEED_OPPORTUNITIES), talks: clone(SEED_TALKS)};
   }
 
   function loadState(storage) {
@@ -239,7 +254,7 @@
     if (raw !== null) {
       try {
         const parsed = JSON.parse(raw);
-        if (parsed && parsed.version === 3 && Array.isArray(parsed.opportunities) && Array.isArray(parsed.talks)) return parsed;
+        if (parsed && parsed.version === 4 && Array.isArray(parsed.opportunities) && Array.isArray(parsed.talks)) return parsed;
       } catch (_) {}
     }
     return initialState();
