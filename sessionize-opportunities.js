@@ -4,7 +4,7 @@
   root.SessionizePublicOpportunities = data;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   return {
-  "generatedAt": "2026-11-07T12:29:25.890517+00:00",
+  "generatedAt": "2026-11-07T12:37:35.908309+00:00",
   "cutoff": "2026-11-07",
   "candidatePages": 934,
   "retainedCount": 124,
