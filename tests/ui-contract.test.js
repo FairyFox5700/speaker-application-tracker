@@ -21,9 +21,23 @@ test('app supports add, edit, delete, save, reset, filters, and exports', () => 
   }
 });
 
+test('research is a third browsable view and loads its static UMD data before core', () => {
+  const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  assert.match(html, /data-view="research"/);
+  assert.match(html, /id="research"[^>]*class="view"/);
+  assert.match(html, /data-testid="research-list"/);
+  assert.match(html, /15 priority CFPs researched[^<]*others remain pending/i);
+  assert.ok(html.indexOf('conference-research.js') < html.indexOf('tracker-core.js'));
+  assert.ok(html.indexOf('research-ui.js') < html.indexOf('app.js'));
+  assert.match(app, /data-research-id/);
+  assert.match(app, /renderResearch/);
+});
+
 test('mobile CSS prevents page overflow and keeps controls touch sized', () => {
   const css = fs.readFileSync(path.join(root, 'styles.css'), 'utf8');
   assert.match(css, /overflow-wrap:\s*anywhere/);
   assert.match(css, /min-height:\s*44px/);
   assert.match(css, /@media\s*\(max-width:\s*700px\)/);
+  assert.match(css, /\.research-grid/);
 });

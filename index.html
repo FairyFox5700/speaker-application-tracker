@@ -27,9 +27,10 @@
       <article><span>Submitted</span><strong id="metricSubmitted">0</strong><small>awaiting decisions</small></article>
     </section>
 
-    <nav class="view-tabs" aria-label="Tracker views">
-      <button class="view-tab active" type="button" data-view="pipeline" aria-selected="true">Pipeline</button>
-      <button class="view-tab" type="button" data-view="talks" aria-selected="false">Talk ideas</button>
+    <nav class="view-tabs" aria-label="Tracker views" role="tablist">
+      <button class="view-tab active" id="pipeline-tab" type="button" data-view="pipeline" role="tab" aria-controls="pipeline" aria-selected="true">Pipeline</button>
+      <button class="view-tab" id="talks-tab" type="button" data-view="talks" role="tab" aria-controls="talks" aria-selected="false">Talk ideas</button>
+      <button class="view-tab" id="research-tab" type="button" data-view="research" role="tab" aria-controls="research" aria-selected="false">Research <span class="tab-count">15</span></button>
     </nav>
 
     <section id="pipeline" class="view active" aria-labelledby="pipeline-title">
@@ -55,9 +56,19 @@
       </div>
     </section>
 
-    <section id="talks" class="view" aria-labelledby="talks-title" hidden>
+    <section id="talks" class="view" role="tabpanel" aria-labelledby="talks-tab" hidden>
       <div class="section-heading"><div><p class="kicker">REUSABLE PROPOSALS</p><h2 id="talks-title">Talk ideas</h2></div></div>
       <div id="talkList" class="talk-grid"></div>
+    </section>
+
+    <section id="research" class="view" role="tabpanel" aria-labelledby="research-tab" hidden>
+      <div class="section-heading research-heading">
+        <div><p class="kicker">PRIOR-EDITION EVIDENCE</p><h2>Conference research</h2><p class="research-scope">15 priority CFPs researched; others remain pending and continue to use the generic talk matcher.</p></div>
+        <p id="researchCount" class="result-count" aria-live="polite"></p>
+      </div>
+      <label class="research-search"><span class="sr-only">Search conference research</span><input id="researchSearch" type="search" placeholder="Search conferences, prior sessions, patterns or talk ideas"></label>
+      <div id="researchList" class="research-grid" data-testid="research-list"></div>
+      <div id="researchEmpty" class="empty-state" hidden><h3>No research matches</h3><p>Try a different conference, session or topic.</p></div>
     </section>
 
     <footer class="footer-tools">
@@ -99,7 +110,9 @@
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script src="sessionize-opportunities.js"></script>
+  <script src="conference-research.js"></script>
   <script src="tracker-core.js"></script>
+  <script src="research-ui.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

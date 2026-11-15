@@ -5,7 +5,10 @@ A local-first CFP and speaker-application pipeline focused on agentic systems, A
 ## Features
 
 - Complete public Sessionize scan across all current high-priority sitemap entries
-- 124 strongly matched, open Sessionize CFPs in the initial generated catalog
+- 123 strongly matched, open Sessionize CFPs in the current generated catalog
+- 132 total tracked opportunities in the current seed catalog
+- Curated prior-edition research for 15 priority CFPs, with direct sources and two conference-specific talk adaptations each
+- A browsable Research view with conference/session search; opportunities outside the 15-record priority set remain pending and use the generic matcher
 - Daily refresh at 05:45 UTC removes expired CFPs and deploys newly discovered matches
 - Three LinkedIn speaker leads with explicit future deadlines and direct source links
 - One signed-in Sessionize Discover recommendation

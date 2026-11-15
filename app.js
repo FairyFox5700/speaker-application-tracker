@@ -1,6 +1,7 @@
 (function () {
   'use strict';
   const core = window.SpeakerTrackerCore;
+  const researchUi = window.SpeakerResearchUi;
   let state = core.loadState(localStorage);
   let activeEditId = null;
 
@@ -8,6 +9,7 @@
   const els = {
     list: $('opportunityList'), talks: $('talkList'), empty: $('emptyState'), count: $('resultCount'),
     search: $('search'), statusFilter: $('statusFilter'), sourceFilter: $('sourceFilter'), deadlineFilter: $('deadlineFilter'), priorityFilter: $('priorityFilter'),
+    researchList: $('researchList'), researchSearch: $('researchSearch'), researchCount: $('researchCount'), researchEmpty: $('researchEmpty'),
     dialog: $('editorDialog'), form: $('opportunityForm'), toast: $('toast')
   };
 
@@ -53,16 +55,18 @@
   function cardHtml(item) {
     const deadline = core.deadlineState(item.deadlineDate);
     const match = core.bestTalk(item, state.talks);
+    const resolution = core.resolveOpportunityResearch(item, state.talks);
+    const hasResearch = resolution.kind === 'researched';
     const sourceType = item.sourceType || 'Official CFP';
     const sourceClass = sourceType === 'LinkedIn lead' ? 'linkedin' : sourceType.startsWith('Sessionize') ? 'sessionize' : '';
     const travel = item.travelSupport || (item.deliveryMode === 'Online' ? 'Online / no trip' : 'Not stated');
     const travelClass = travel === 'Travel sponsored' ? 'funded' : travel === 'Partial / conditional' ? 'partial' : travel === 'Not covered' ? 'unfunded' : 'neutral';
     const actionLabel = sourceType === 'LinkedIn lead' ? 'View LinkedIn' : sourceType === 'Sessionize recommendation' ? 'Open group' : 'Open CFP';
     return `<article class="opportunity-card" data-testid="opportunity-item" data-record-id="${escapeHtml(item.id)}">
-      <div class="opportunity-title"><span class="priority-dot ${escapeHtml(item.priority)}" aria-hidden="true"></span><div><div class="record-badges"><span class="source-badge ${sourceClass}">${escapeHtml(sourceType)}</span><span class="travel-badge ${travelClass}">${travel === 'Travel sponsored' ? 'Trip sponsored' : escapeHtml(travel)}</span></div><h3>${escapeHtml(item.name)}</h3><p>${escapeHtml(item.category)} · ${escapeHtml(item.location)} · event ${dateLabel(item.eventDate)}</p></div></div>
+      <div class="opportunity-title"><span class="priority-dot ${escapeHtml(item.priority)}" aria-hidden="true"></span><div><div class="record-badges"><span class="source-badge ${sourceClass}">${escapeHtml(sourceType)}</span><span class="travel-badge ${travelClass}">${travel === 'Travel sponsored' ? 'Trip sponsored' : escapeHtml(travel)}</span>${hasResearch ? '<span class="research-badge">Research ready</span>' : ''}</div><h3>${escapeHtml(item.name)}</h3><p>${escapeHtml(item.category)} · ${escapeHtml(item.location)} · event ${dateLabel(item.eventDate)}</p></div></div>
       <div class="status-cell"><span class="label">Application</span><select class="status-select" data-status-id="${escapeHtml(item.id)}" aria-label="Application status for ${escapeHtml(item.name)}">${statusOptions(item.status)}</select></div>
       <div class="deadline"><span class="label">CFP deadline</span><strong>${dateLabel(item.deadlineDate)}</strong><span class="deadline-badge ${deadline.key}">${escapeHtml(deadline.label)}</span></div>
-      <div class="card-actions"><a class="primary cfp-link" href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noopener">${actionLabel}</a><button class="quiet edit-button" data-edit-id="${escapeHtml(item.id)}" data-testid="edit-opportunity" type="button">Edit</button></div>
+      <div class="card-actions"><a class="primary cfp-link" href="${escapeHtml(researchUi.safeUrl(item.sourceUrl))}" target="_blank" rel="noopener noreferrer">${actionLabel}</a>${hasResearch ? `<button class="quiet research-button" data-research-id="${escapeHtml(item.id)}" type="button">Research</button>` : ''}<button class="quiet edit-button" data-edit-id="${escapeHtml(item.id)}" data-testid="edit-opportunity" type="button">Edit</button></div>
       <div class="talk-match"><span class="label">Best talk match</span>${match ? `<strong>${escapeHtml(match.talk.title)} <span class="score">${match.score}%</span></strong><small>${escapeHtml(match.reasons.slice(0,2).join(' · '))}</small>` : '<strong>No talk idea yet</strong>'}</div>
       <div class="next-action"><span><b>Travel:</b> ${escapeHtml(item.travelDetails || travel)}</span><span><b>Next:</b> ${escapeHtml(item.nextAction || 'Choose a next action.')}</span></div>
     </article>`;
@@ -70,6 +74,39 @@
 
   function renderTalks() {
     els.talks.innerHTML = state.talks.map(talk => `<article class="talk-card"><p class="kicker">${escapeHtml(talk.stage.toUpperCase())}${talk.demoReady ? ' · DEMO READY' : ''}</p><h3>${escapeHtml(talk.title)}</h3><p>${escapeHtml(talk.pitch)}</p><div class="chips">${talk.topics.map(topic => `<span class="chip">${escapeHtml(topic)}</span>`).join('')}</div></article>`).join('');
+  }
+
+  function renderResearch() {
+    const result = researchUi.renderResearchCatalog(core.CONFERENCE_RESEARCH.items, state.talks, els.researchSearch.value);
+    els.researchList.innerHTML = result.html;
+    els.researchCount.textContent = `${result.count} of ${core.CONFERENCE_RESEARCH.reviewedCount} researched conferences`;
+    els.researchEmpty.hidden = result.count !== 0;
+  }
+
+  function activateView(viewId) {
+    document.querySelectorAll('.view-tab').forEach(button => {
+      const active = button.dataset.view === viewId;
+      button.classList.toggle('active', active);
+      button.setAttribute('aria-selected', active ? 'true' : 'false');
+      button.tabIndex = active ? 0 : -1;
+    });
+    document.querySelectorAll('.view').forEach(view => {
+      const active = view.id === viewId;
+      view.classList.toggle('active', active);
+      view.hidden = !active;
+    });
+  }
+
+  function openResearch(opportunityId) {
+    els.researchSearch.value = '';
+    renderResearch();
+    activateView('research');
+    const target = document.querySelector(`[data-research-record="${CSS.escape(opportunityId)}"]`);
+    if (target) {
+      target.tabIndex = -1;
+      target.scrollIntoView({block: 'start'});
+      target.focus({preventScroll: true});
+    }
   }
 
   function render() {
@@ -85,6 +122,7 @@
     els.count.textContent = `${filtered.length} of ${activeCount} open opportunities`;
     renderMetrics();
     renderTalks();
+    renderResearch();
   }
 
   function clearFilters() {
@@ -232,17 +270,31 @@
   $('exportCsv').addEventListener('click', downloadCsv);
   $('resetData').addEventListener('click', resetData);
   $('importJson').addEventListener('change', event => importJson(event.target.files[0]));
-  els.list.addEventListener('click', event => { const button = event.target.closest('[data-edit-id]'); if (button) openEditor(button.dataset.editId); });
+  els.researchSearch.addEventListener('input', renderResearch);
+  els.list.addEventListener('click', event => {
+    const researchButton = event.target.closest('[data-research-id]');
+    if (researchButton) { openResearch(researchButton.dataset.researchId); return; }
+    const editButton = event.target.closest('[data-edit-id]');
+    if (editButton) openEditor(editButton.dataset.editId);
+  });
   els.list.addEventListener('change', event => {
     const select = event.target.closest('[data-status-id]');
     if (!select) return;
     const item = state.opportunities.find(x => x.id === select.dataset.statusId);
     if (item) { item.status = select.value; item.lastUpdated = new Date().toISOString().slice(0,10); persist('Status updated'); render(); }
   });
-  document.querySelectorAll('.view-tab').forEach(button => button.addEventListener('click', () => {
-    document.querySelectorAll('.view-tab').forEach(x => { x.classList.toggle('active', x === button); x.setAttribute('aria-selected', x === button ? 'true' : 'false'); });
-    document.querySelectorAll('.view').forEach(view => { const active = view.id === button.dataset.view; view.classList.toggle('active', active); view.hidden = !active; });
-  }));
+  document.querySelectorAll('.view-tab').forEach(button => button.addEventListener('click', () => activateView(button.dataset.view)));
+  document.querySelector('.view-tabs').addEventListener('keydown', event => {
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+    const tabs = [...document.querySelectorAll('.view-tab')];
+    const current = tabs.indexOf(document.activeElement);
+    if (current < 0) return;
+    event.preventDefault();
+    const index = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 : (current + (event.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+    activateView(tabs[index].dataset.view);
+    tabs[index].focus();
+  });
   els.dialog.addEventListener('click', event => { if (event.target === els.dialog) closeEditor(); });
+  activateView('pipeline');
   render();
 })();
