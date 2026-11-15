@@ -22,6 +22,7 @@ A local-first CFP and speaker-application pipeline focused on agentic systems, A
 - Add, edit, and delete opportunities
 - Browser persistence under `speakerTracker:v5`, including refresh-safe statuses and dismissals
 - JSON backup/import and RFC 4180-compatible CSV export
+- Original monster-quest visual theme with handheld-game styling, responsive mobile layout, and no external franchise assets
 - Responsive single-column mobile cards
 
 The original three suggestions were removed because their deadlines had passed. The tracker now includes only CFPs whose deadlines are still open and automatically hides an opportunity once its deadline passes.

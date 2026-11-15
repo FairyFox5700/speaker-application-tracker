@@ -8,34 +8,35 @@
   <title>Speaker Application Tracker</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="quest-theme">
   <a class="skip-link" href="#pipeline">Skip to pipeline</a>
   <main class="shell" data-testid="app">
     <header class="topbar">
+      <div class="device-lights" aria-hidden="true"><span class="device-lens"></span><span class="device-dot dot-red"></span><span class="device-dot dot-yellow"></span><span class="device-dot dot-green"></span></div>
       <div>
-        <p class="eyebrow">SPEAKING · CFP PIPELINE</p>
-        <h1>Speaker Application Tracker</h1>
-        <p class="lede">Agentic systems, Azure, AI engineering and developer platforms.</p>
+        <p class="eyebrow">SPEAKER QUEST · CFP ADVENTURE</p>
+        <h1>Speaker Quest Tracker</h1>
+        <p class="lede">Choose the right conference, train your talk, and complete every submission quest.</p>
       </div>
-      <button class="primary" id="addButton" data-testid="add-opportunity" type="button">+ Add opportunity</button>
+      <button class="primary" id="addButton" data-testid="add-opportunity" type="button">+ Add quest</button>
     </header>
 
     <section class="metrics" aria-label="Pipeline summary">
-      <article><span>Open CFPs</span><strong id="metricOpen">0</strong><small>future deadlines</small></article>
-      <article><span>Due ≤21 days</span><strong id="metricSoon">0</strong><small>prioritize proposals</small></article>
-      <article><span>Drafting</span><strong id="metricDrafting">0</strong><small>proposals in progress</small></article>
-      <article><span>Submitted</span><strong id="metricSubmitted">0</strong><small>awaiting decisions</small></article>
+      <article><span>Open quests</span><strong id="metricOpen">0</strong><small>CFPs to explore</small></article>
+      <article><span>Urgent quests</span><strong id="metricSoon">0</strong><small>due within 21 days</small></article>
+      <article><span>In training</span><strong id="metricDrafting">0</strong><small>proposals in progress</small></article>
+      <article><span>Completed</span><strong id="metricSubmitted">0</strong><small>submitted proposals</small></article>
     </section>
 
     <nav class="view-tabs" aria-label="Tracker views" role="tablist">
-      <button class="view-tab active" id="pipeline-tab" type="button" data-view="pipeline" role="tab" aria-controls="pipeline" aria-selected="true">Pipeline</button>
-      <button class="view-tab" id="talks-tab" type="button" data-view="talks" role="tab" aria-controls="talks" aria-selected="false">Talk ideas</button>
-      <button class="view-tab" id="research-tab" type="button" data-view="research" role="tab" aria-controls="research" aria-selected="false">Research <span class="tab-count">15</span></button>
+      <button class="view-tab active" id="pipeline-tab" type="button" data-view="pipeline" role="tab" aria-controls="pipeline" aria-selected="true">Quest map</button>
+      <button class="view-tab" id="talks-tab" type="button" data-view="talks" role="tab" aria-controls="talks" aria-selected="false">Move set</button>
+      <button class="view-tab" id="research-tab" type="button" data-view="research" role="tab" aria-controls="research" aria-selected="false">Research Dex <span class="tab-count">15</span></button>
     </nav>
 
     <section id="pipeline" class="view active" aria-labelledby="pipeline-title">
       <div class="section-heading">
-        <div><p class="kicker">OPPORTUNITIES</p><h2 id="pipeline-title">Application pipeline</h2></div>
+        <div><p class="kicker">ACTIVE QUESTS</p><h2 id="pipeline-title">Conference quest map</h2></div>
         <p id="resultCount" class="result-count" aria-live="polite"></p>
       </div>
 
@@ -57,13 +58,13 @@
     </section>
 
     <section id="talks" class="view" role="tabpanel" aria-labelledby="talks-tab" hidden>
-      <div class="section-heading"><div><p class="kicker">REUSABLE PROPOSALS</p><h2 id="talks-title">Talk ideas</h2></div></div>
+      <div class="section-heading"><div><p class="kicker">REUSABLE MOVES</p><h2 id="talks-title">Talk move set</h2></div></div>
       <div id="talkList" class="talk-grid"></div>
     </section>
 
     <section id="research" class="view" role="tabpanel" aria-labelledby="research-tab" hidden>
       <div class="section-heading research-heading">
-        <div><p class="kicker">PRIOR-EDITION EVIDENCE</p><h2>Conference research</h2><p class="research-scope">15 priority CFPs researched; others remain pending and continue to use the generic talk matcher.</p></div>
+        <div><p class="kicker">CONFERENCE RESEARCH DEX</p><h2>Past programs & winning moves</h2><p class="research-scope">15 priority CFPs researched; others remain pending and continue to use the generic talk matcher.</p></div>
         <p id="researchCount" class="result-count" aria-live="polite"></p>
       </div>
       <label class="research-search"><span class="sr-only">Search conference research</span><input id="researchSearch" type="search" placeholder="Search conferences, prior sessions, patterns or talk ideas"></label>
