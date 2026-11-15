@@ -41,3 +41,17 @@ test('mobile CSS prevents page overflow and keeps controls touch sized', () => {
   assert.match(css, /@media\s*\(max-width:\s*700px\)/);
   assert.match(css, /\.research-grid/);
 });
+
+test('ships an original monster-quest visual theme without external franchise assets', () => {
+  const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+  const css = fs.readFileSync(path.join(root, 'styles.css'), 'utf8');
+  assert.match(html, /class="quest-theme"/);
+  assert.match(html, /SPEAKER QUEST/);
+  assert.match(html, /class="device-lights"/);
+  for (const token of ['--quest-red', '--quest-yellow', '--quest-blue', '--quest-cream', '--quest-ink']) {
+    assert.match(css, new RegExp(token));
+  }
+  assert.match(css, /box-shadow:\s*4px 4px 0/);
+  assert.match(css, /prefers-reduced-motion/);
+  assert.doesNotMatch(html + css, /pokemon\.com|pokeapi|official pokemon/i);
+});
