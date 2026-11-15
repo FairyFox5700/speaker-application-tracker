@@ -123,6 +123,13 @@
     try { generatedSessionize = require('./sessionize-opportunities.js'); } catch (_) {}
   }
 
+  let conferenceResearch = {items: [], byOpportunityId: {}};
+  if (typeof globalThis !== 'undefined' && globalThis.SpeakerConferenceResearch) {
+    conferenceResearch = globalThis.SpeakerConferenceResearch;
+  } else if (typeof require === 'function') {
+    try { conferenceResearch = require('./conference-research.js'); } catch (_) {}
+  }
+
   const opportunityMap = new Map();
   [...MANUAL_OPPORTUNITIES, ...(generatedSessionize.items || [])].forEach(item => {
     const urlKey = String(item.sourceUrl || '').toLowerCase().replace(/\/$/, '');
@@ -229,6 +236,32 @@
       .sort((a, b) => b.score - a.score || a.talk.title.localeCompare(b.talk.title))[0] || null;
   }
 
+  function resolveOpportunityResearch(opportunity, talks) {
+    const research = opportunity && conferenceResearch.byOpportunityId
+      ? conferenceResearch.byOpportunityId[opportunity.id] || null
+      : null;
+    if (research) {
+      const talksById = new Map((talks || []).map(talk => [talk.id, talk]));
+      return {
+        kind: 'researched',
+        research,
+        recommendations: research.recommendations.map(idea => ({...idea, baseTalk: talksById.get(idea.baseTalkId) || null}))
+      };
+    }
+    const generic = bestTalk(opportunity || {}, talks);
+    return {
+      kind: 'generic',
+      research: null,
+      recommendations: generic ? [{
+        title: generic.talk.title,
+        rationale: generic.reasons.join(' · '),
+        baseTalkId: generic.talk.id,
+        baseTalk: generic.talk,
+        score: generic.score
+      }] : []
+    };
+  }
+
   function filterOpportunities(items, filters, now) {
     const f = filters || {};
     const search = String(f.search || '').trim().toLowerCase();
@@ -305,5 +338,5 @@
     return id;
   }
 
-  return {STORAGE_KEY, STATUSES, SEED_OPPORTUNITIES, SEED_TALKS, EXPORT_FIELDS, deadlineState, activeOpportunities, matchTalk, bestTalk, filterOpportunities, toCsv, initialState, loadState, saveState, createId};
+  return {STORAGE_KEY, STATUSES, SEED_OPPORTUNITIES, SEED_TALKS, CONFERENCE_RESEARCH: conferenceResearch, EXPORT_FIELDS, deadlineState, activeOpportunities, matchTalk, bestTalk, resolveOpportunityResearch, filterOpportunities, toCsv, initialState, loadState, saveState, createId};
 });
