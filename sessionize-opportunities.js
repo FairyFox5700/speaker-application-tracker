@@ -4,132 +4,14 @@
   root.SessionizePublicOpportunities = data;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   return {
-  "generatedAt": "2026-11-14T12:31:17.031365+00:00",
-  "cutoff": "2026-11-14",
-  "candidatePages": 894,
-  "retainedCount": 126,
+  "generatedAt": "2026-11-15T12:58:41.724525+00:00",
+  "cutoff": "2026-11-15",
+  "candidatePages": 888,
+  "retainedCount": 123,
   "minimumMatchScore": 11,
   "errorCount": 0,
   "errors": [],
   "items": [
-    {
-      "id": "sessionize-net-conf-pune-2026",
-      "name": ".NET Conf 2026 Pune (In-Person)",
-      "category": "Sessionize opportunity",
-      "eventDate": "2026-11-28",
-      "deadlineDate": "2026-11-14",
-      "deadlineTimezone": "UTC",
-      "location": "Location not stated",
-      "deliveryMode": "In-person",
-      "sourceType": "Sessionize public CFP",
-      "source": "Sessionize public open CFP",
-      "sourceUrl": "https://sessionize.com/net-conf-pune-2026/",
-      "sourceStatus": "CFP open",
-      "sourceScore": 1,
-      "matchScore": 21,
-      "travelSupport": "Not stated",
-      "travelDetails": "Speaker travel support is not stated on the public CFP page.",
-      "topics": [
-        "Agentic AI",
-        "Azure",
-        "Copilot",
-        "AI Engineering",
-        "RAG / MCP",
-        "Microsoft Data",
-        "Cloud / DevOps"
-      ],
-      "audience": [
-        "Developers",
-        "Architects",
-        "Engineering leaders"
-      ],
-      "status": "Not started",
-      "priority": "High",
-      "matchedTalkIds": [],
-      "nextAction": "Review the CFP and submit the best-matching talk.",
-      "notes": "",
-      "submittedAt": "",
-      "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
-    },
-    {
-      "id": "sessionize-devfest-dutse-26",
-      "name": "DevFest Dutse '26",
-      "category": "Sessionize opportunity",
-      "eventDate": "2026-11-07",
-      "deadlineDate": "2026-11-14",
-      "deadlineTimezone": "UTC",
-      "location": "Location not stated",
-      "deliveryMode": "In-person",
-      "sourceType": "Sessionize public CFP",
-      "source": "Sessionize public open CFP",
-      "sourceUrl": "https://sessionize.com/devfest-dutse-26/",
-      "sourceStatus": "CFP open",
-      "sourceScore": 0.78,
-      "matchScore": 14,
-      "travelSupport": "Not stated",
-      "travelDetails": "Speaker travel support is not stated on the public CFP page.",
-      "topics": [
-        "Agentic AI",
-        "Azure",
-        "AI Engineering",
-        "Microsoft Data",
-        "Cloud / DevOps"
-      ],
-      "audience": [
-        "Developers",
-        "Architects",
-        "Engineering leaders"
-      ],
-      "status": "Not started",
-      "priority": "Medium",
-      "matchedTalkIds": [],
-      "nextAction": "Review the CFP and submit the best-matching talk.",
-      "notes": "",
-      "submittedAt": "",
-      "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
-    },
-    {
-      "id": "sessionize-datasatdk-2027",
-      "name": "Data Saturday - Denmark - 2027",
-      "category": "Sessionize opportunity",
-      "eventDate": "2027-01-30",
-      "deadlineDate": "2026-11-15",
-      "deadlineTimezone": "UTC",
-      "location": "Location not stated",
-      "deliveryMode": "Hybrid",
-      "sourceType": "Sessionize public CFP",
-      "source": "Sessionize public open CFP",
-      "sourceUrl": "https://sessionize.com/datasatdk-2027/",
-      "sourceStatus": "CFP open",
-      "sourceScore": 1,
-      "matchScore": 21,
-      "travelSupport": "Not stated",
-      "travelDetails": "Speaker travel support is not stated on the public CFP page.",
-      "topics": [
-        "Agentic AI",
-        "Azure",
-        "Copilot",
-        "AI Engineering",
-        "RAG / MCP",
-        "Microsoft Data",
-        "Cloud / DevOps"
-      ],
-      "audience": [
-        "Developers",
-        "Architects",
-        "Engineering leaders"
-      ],
-      "status": "Not started",
-      "priority": "High",
-      "matchedTalkIds": [],
-      "nextAction": "Review the CFP and submit the best-matching talk.",
-      "notes": "",
-      "submittedAt": "",
-      "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
-    },
     {
       "id": "sessionize-aws-community-day-bangladesh-2026",
       "name": "AWS Community Day Bangladesh 2026",
@@ -167,7 +49,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-ai-agents-day",
@@ -205,7 +87,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-london-containerdays-and-ai-context-2027",
@@ -243,7 +125,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-gppb-ng2027",
@@ -281,7 +163,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-sinergiadigital2027",
@@ -319,7 +201,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-net-conf-2026-my-agents-latam-lima",
@@ -356,7 +238,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-net-conf-gt-2026",
@@ -393,7 +275,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-net-conf-2026-ahmedabad-in-person",
@@ -431,7 +313,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-net-conf-2026-net-baires",
@@ -469,7 +351,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-devfest-budapest-2026-on-campus",
@@ -508,7 +390,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-dotnet-local-conf-2026-coimbatore",
@@ -546,7 +428,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-global-ai-community-helsinki",
@@ -582,7 +464,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-global-ai-dubai",
@@ -618,7 +500,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-microsoft-foundry-day",
@@ -655,7 +537,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-2027-knoxville-microsoft-community-day",
@@ -692,7 +574,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-intune-summit-para-mozambique",
@@ -729,7 +611,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-leeds-data-analytics-usergroup",
@@ -766,7 +648,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-aaif-december-talks",
@@ -802,7 +684,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-data-analytic-group-monthly-connect-2026",
@@ -839,7 +721,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-dot-net-liverpool-meetup-speakers-wanted",
@@ -876,7 +758,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-gloabal-ai-nights-sofia",
@@ -912,7 +794,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-devfest-ottawa-2026",
@@ -949,7 +831,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-colorcloud-hamburg-2027",
@@ -989,7 +871,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-alohai-2026",
@@ -1026,7 +908,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-cncf-hosted-co-located-events-europe-2027",
@@ -1064,7 +946,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-buildathon-devfest-nepal-2026",
@@ -1102,7 +984,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-d365ppugne",
@@ -1140,7 +1022,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-experts-live-uk-2027-in-london",
@@ -1177,7 +1059,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-first-ever-community-day-rajkot",
@@ -1214,7 +1096,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-dxday-2027-ai-edition",
@@ -1251,7 +1133,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-power-platform-days-barcelona-2026",
@@ -1287,7 +1169,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-wpninjasbe26",
@@ -1323,7 +1205,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-workplace-ninjas-denmark-2026",
@@ -1359,7 +1241,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-data-ai-costarica",
@@ -1397,7 +1279,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-dynamicscon-regional-europe-2027",
@@ -1433,7 +1315,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-ai-context-ny-co",
@@ -1471,7 +1353,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-quarkusdev2027",
@@ -1508,7 +1390,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-m365-saturday-ahmedabad-2027-in-person",
@@ -1544,7 +1426,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-global-ai-charlotte-microsoft-community4515",
@@ -1583,7 +1465,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-aws-student-community-day-mumbai-2027",
@@ -1620,7 +1502,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-devfest-bujumbura-2026",
@@ -1657,7 +1539,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-azurebrains-madrid",
@@ -1693,7 +1575,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-groningen-data-platform-meetup-lighting",
@@ -1731,7 +1613,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-ai-engineering-summit-2027",
@@ -1770,7 +1652,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-devopscon-mlcon-ai-engineering-summit-2027",
@@ -1808,7 +1690,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-tennessee-days-m365-virtual-meetups",
@@ -1844,7 +1726,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-tndays-m365-virtual-meetup-2026",
@@ -1880,7 +1762,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-gppb-dubai-2027",
@@ -1919,7 +1801,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-dataminds-saturday-2027",
@@ -1957,7 +1839,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-vslailmshq27",
@@ -1997,7 +1879,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-tmclmshq27",
@@ -2034,7 +1916,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-devjvm-2027",
@@ -2072,7 +1954,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-m365-community-day-st-louis-2027",
@@ -2109,7 +1991,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-nodesai-2027",
@@ -2145,7 +2027,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-ai-copilot-summit-01-02-juni-2027",
@@ -2181,7 +2063,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-cncf-montreal",
@@ -2219,7 +2101,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-cncf-ottawa",
@@ -2257,7 +2139,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-global-power-platform-ndac",
@@ -2294,7 +2176,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-sqlday-2027",
@@ -2334,7 +2216,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-data-saturday-croatia-2027",
@@ -2373,7 +2255,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-copilot-collective-oc",
@@ -2411,7 +2293,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-wpngermany",
@@ -2449,7 +2331,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-cloud-native-south-florida",
@@ -2488,7 +2370,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-microsoft-intelligence-data-platform-es",
@@ -2527,7 +2409,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-women-in-tech-malaga-conference-2027",
@@ -2566,7 +2448,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-austin-acm-meetup",
@@ -2605,7 +2487,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-ai-governance-and-data-security-show",
@@ -2643,7 +2525,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-azuresingapore2026",
@@ -2681,7 +2563,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-house-of-fabric",
@@ -2718,7 +2600,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-microsoft-fabric-usergroup-austria",
@@ -2755,7 +2637,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-microsoft-fabric-builders-hub-hyderabad",
@@ -2792,7 +2674,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-azurepoland",
@@ -2829,7 +2711,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-mtg",
@@ -2866,7 +2748,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-microsoft-azure-skillup-tamilnadu-sessio2859",
@@ -2903,7 +2785,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-smartbytes",
@@ -2940,7 +2822,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-technexus-community-blr",
@@ -2977,7 +2859,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-technexus-community-chennai-cfs-2026",
@@ -3014,7 +2896,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-adoption-first-a-microsoft-user-group",
@@ -3050,7 +2932,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-norwegian-microsoft-tech-community5117",
@@ -3086,7 +2968,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-gppb2027pl",
@@ -3124,7 +3006,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-global-power-platform-agent-bootcamp",
@@ -3160,7 +3042,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-workplace-ninjas-norway-2027",
@@ -3199,7 +3081,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-umbraco-spark-2027",
@@ -3236,7 +3118,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-fcaic",
@@ -3273,7 +3155,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-iceberg-summit-2027",
@@ -3310,7 +3192,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-eppc27",
@@ -3348,7 +3230,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-east-of-england-summit-2027",
@@ -3385,7 +3267,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-collab-rewired-26",
@@ -3422,7 +3304,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-techmang27-professional-edition",
@@ -3460,7 +3342,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-ndc-oslo-2027",
@@ -3497,7 +3379,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-techmang27-student-edition",
@@ -3533,7 +3415,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-global-ai-bootcamp-castellon-2027",
@@ -3570,7 +3452,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-global-power-platform-bootcamp-castellon-2027",
@@ -3607,7 +3489,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-platmosphere-chapter-2027-beyond-the-loop",
@@ -3644,7 +3526,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-gum365-communitydays-trimestriels",
@@ -3680,7 +3562,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-up-powerbiclub",
@@ -3720,7 +3602,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-data-point-prague-2027",
@@ -3759,7 +3641,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-replay-2027",
@@ -3795,7 +3677,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-west-michigan-m365-community-day-2026-c",
@@ -3831,7 +3713,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-span-cyber-security-arena-2027",
@@ -3868,7 +3750,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-innovate-qa-2027",
@@ -3904,7 +3786,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-oaiconference-2027",
@@ -3941,7 +3823,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-percona-live-bayarea-2027",
@@ -3978,7 +3860,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-washington-dc-power-platform-user-group",
@@ -4015,7 +3897,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-copilotverse-global-user-group",
@@ -4051,7 +3933,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-power-platform-user-group-albania",
@@ -4088,7 +3970,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-dynamicscon-regional-midwest-usa",
@@ -4124,7 +4006,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-stl-m365-ug",
@@ -4160,7 +4042,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-bsides-krakow-2027",
@@ -4198,7 +4080,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-global-ai-community-seattle",
@@ -4236,7 +4118,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-dugnewjersey",
@@ -4272,7 +4154,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-clt-data",
@@ -4311,7 +4193,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-vllm-meetup-toronto",
@@ -4347,7 +4229,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-azure-user-group-vadodara",
@@ -4384,7 +4266,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-dev-talk",
@@ -4423,7 +4305,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-london-ai-usergroup",
@@ -4460,7 +4342,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-codingbunker",
@@ -4498,7 +4380,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-comunidad-costa-rica-power-bi-26-27",
@@ -4535,7 +4417,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-claude-community-vienna",
@@ -4572,7 +4454,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-nwscug",
@@ -4608,7 +4490,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-cincydata",
@@ -4646,7 +4528,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-wpninjasbe",
@@ -4682,7 +4564,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     },
     {
       "id": "sessionize-cloud-native-melbourne",
@@ -4719,7 +4601,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-14"
+      "lastUpdated": "2026-11-15"
     }
   ]
 };
