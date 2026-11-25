@@ -8,7 +8,7 @@
   const $ = id => document.getElementById(id);
   const els = {
     list: $('opportunityList'), talks: $('talkList'), empty: $('emptyState'), count: $('resultCount'),
-    search: $('search'), statusFilter: $('statusFilter'), sourceFilter: $('sourceFilter'), deadlineFilter: $('deadlineFilter'), priorityFilter: $('priorityFilter'),
+    search: $('search'), statusFilter: $('statusFilter'), sourceFilter: $('sourceFilter'), deadlineFilter: $('deadlineFilter'), priorityFilter: $('priorityFilter'), travelFilter: $('travelFilter'),
     researchList: $('researchList'), researchSearch: $('researchSearch'), researchCount: $('researchCount'), researchEmpty: $('researchEmpty'),
     dialog: $('editorDialog'), form: $('opportunityForm'), toast: $('toast')
   };
@@ -40,7 +40,7 @@
   }
 
   function currentFilters() {
-    return {search: els.search.value, status: els.statusFilter.value, source: els.sourceFilter.value, deadline: els.deadlineFilter.value, priority: els.priorityFilter.value};
+    return {search: els.search.value, status: els.statusFilter.value, source: els.sourceFilter.value, deadline: els.deadlineFilter.value, priority: els.priorityFilter.value, travel: els.travelFilter.value};
   }
 
   function renderMetrics() {
@@ -131,6 +131,7 @@
     els.sourceFilter.value = 'all';
     els.deadlineFilter.value = 'all';
     els.priorityFilter.value = 'all';
+    els.travelFilter.value = 'all';
     render();
   }
 

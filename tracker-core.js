@@ -272,6 +272,12 @@
       if (f.priority && f.priority !== 'all' && item.priority !== f.priority) return false;
       if (f.source && f.source !== 'all' && (item.sourceType || 'Official CFP') !== f.source) return false;
       if (f.mode && f.mode !== 'all' && item.deliveryMode !== f.mode) return false;
+      if (f.travel && f.travel !== 'all') {
+        const travel = item.travelSupport || (item.deliveryMode === 'Online' ? 'Online / no trip' : 'Not stated');
+        if (f.travel === 'sponsored' && travel !== 'Travel sponsored') return false;
+        if (f.travel === 'online' && travel !== 'Online / no trip') return false;
+        if (f.travel === 'unstated' && (travel === 'Travel sponsored' || travel === 'Online / no trip')) return false;
+      }
       if (f.deadline && f.deadline !== 'all') {
         const key = deadlineState(item.deadlineDate, now).key;
         if (f.deadline === 'open' && !['today', 'critical', 'soon', 'upcoming', 'later'].includes(key)) return false;
