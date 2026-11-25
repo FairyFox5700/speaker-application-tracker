@@ -66,7 +66,7 @@
       <div class="opportunity-title"><span class="priority-dot ${escapeHtml(item.priority)}" aria-hidden="true"></span><div><div class="record-badges"><span class="source-badge ${sourceClass}">${escapeHtml(sourceType)}</span><span class="travel-badge ${travelClass}">${travel === 'Travel sponsored' ? 'Trip sponsored' : escapeHtml(travel)}</span>${hasResearch ? '<span class="research-badge">Research ready</span>' : ''}</div><h3>${escapeHtml(item.name)}</h3><p>${escapeHtml(item.category)} · ${escapeHtml(item.location)} · event ${dateLabel(item.eventDate)}</p></div></div>
       <div class="status-cell"><span class="label">Application</span><select class="status-select" data-status-id="${escapeHtml(item.id)}" aria-label="Application status for ${escapeHtml(item.name)}">${statusOptions(item.status)}</select></div>
       <div class="deadline"><span class="label">CFP deadline</span><strong>${dateLabel(item.deadlineDate)}</strong><span class="deadline-badge ${deadline.key}">${escapeHtml(deadline.label)}</span></div>
-      <div class="card-actions"><a class="primary cfp-link" href="${escapeHtml(researchUi.safeUrl(item.sourceUrl))}" target="_blank" rel="noopener noreferrer">${actionLabel}</a>${hasResearch ? `<button class="quiet research-button" data-research-id="${escapeHtml(item.id)}" type="button">Research</button>` : ''}<button class="quiet edit-button" data-edit-id="${escapeHtml(item.id)}" data-testid="edit-opportunity" type="button">Edit</button></div>
+      <div class="card-actions"><a class="primary cfp-link" href="${escapeHtml(researchUi.safeUrl(item.sourceUrl))}" target="_blank" rel="noopener noreferrer">${actionLabel}</a>${hasResearch ? `<button class="quiet research-button" data-research-id="${escapeHtml(item.id)}" type="button">Research</button>` : `<a class="quiet research-topic-link" data-testid="research-topic" href="${escapeHtml(topicSearchUrl(item))}" target="_blank" rel="noopener noreferrer">Research topic</a>`}<button class="quiet edit-button" data-edit-id="${escapeHtml(item.id)}" data-testid="edit-opportunity" type="button">Edit</button></div>
       <div class="talk-match"><span class="label">Best talk match</span>${match ? `<strong>${escapeHtml(match.talk.title)} <span class="score">${match.score}%</span></strong><small>${escapeHtml(match.reasons.slice(0,2).join(' · '))}</small>` : '<strong>No talk idea yet</strong>'}</div>
       <div class="next-action"><span><b>Travel:</b> ${escapeHtml(item.travelDetails || travel)}</span><span><b>Next:</b> ${escapeHtml(item.nextAction || 'Choose a next action.')}</span></div>
     </article>`;
@@ -95,6 +95,12 @@
       view.classList.toggle('active', active);
       view.hidden = !active;
     });
+  }
+
+  function topicSearchUrl(item) {
+    const topics = (item.topics || []).slice(0, 3).join(' ');
+    const query = `${item.name} ${topics} call for papers topics`.replace(/\s+/g, ' ').trim();
+    return `https://www.google.com/search?q=${encodeURIComponent(query)}`;
   }
 
   function openResearch(opportunityId) {
