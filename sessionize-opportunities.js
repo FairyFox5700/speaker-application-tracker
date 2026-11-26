@@ -4,10 +4,10 @@
   root.SessionizePublicOpportunities = data;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   return {
-  "generatedAt": "2026-11-26T07:28:08.439406+00:00",
+  "generatedAt": "2026-11-26T15:48:22.091684+00:00",
   "cutoff": "2026-11-26",
-  "candidatePages": 859,
-  "retainedCount": 134,
+  "candidatePages": 860,
+  "retainedCount": 135,
   "minimumMatchScore": 11,
   "errorCount": 0,
   "errors": [],
@@ -4852,6 +4852,43 @@
         "Copilot",
         "AI Engineering",
         "Microsoft Data",
+        "Cloud / DevOps"
+      ],
+      "audience": [
+        "Developers",
+        "Architects",
+        "Engineering leaders"
+      ],
+      "status": "Not started",
+      "priority": "Medium",
+      "matchedTalkIds": [],
+      "nextAction": "Review the CFP and submit the best-matching talk.",
+      "notes": "",
+      "submittedAt": "",
+      "confirmationReference": "",
+      "lastUpdated": "2026-11-26"
+    },
+    {
+      "id": "sessionize-devtalks-podcast",
+      "name": "DevTalks Podcast",
+      "category": "Sessionize opportunity",
+      "eventDate": "2027-10-31",
+      "deadlineDate": "2027-10-31",
+      "deadlineTimezone": "UTC",
+      "location": "Location not stated",
+      "deliveryMode": "In-person",
+      "sourceType": "Sessionize public CFP",
+      "source": "Sessionize public open CFP",
+      "sourceUrl": "https://sessionize.com/devtalks-podcast/",
+      "sourceStatus": "CFP open",
+      "sourceScore": 0.67,
+      "matchScore": 12,
+      "travelSupport": "Not stated",
+      "travelDetails": "Speaker travel support is not stated on the public CFP page.",
+      "topics": [
+        "Agentic AI",
+        "Azure",
+        "AI Engineering",
         "Cloud / DevOps"
       ],
       "audience": [
