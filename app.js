@@ -58,7 +58,7 @@
     const resolution = core.resolveOpportunityResearch(item, state.talks);
     const hasResearch = resolution.kind === 'researched';
     const sourceType = item.sourceType || 'Official CFP';
-    const sourceClass = sourceType === 'LinkedIn lead' ? 'linkedin' : sourceType.startsWith('Sessionize') ? 'sessionize' : '';
+    const sourceClass = sourceType === 'LinkedIn lead' ? 'linkedin' : sourceType === 'Confs.tech CFP' ? 'confstech' : sourceType.startsWith('Sessionize') ? 'sessionize' : '';
     const travel = item.travelSupport || (item.deliveryMode === 'Online' ? 'Online / no trip' : 'Not stated');
     const travelClass = travel === 'Travel sponsored' ? 'funded' : travel === 'Partial / conditional' ? 'partial' : travel === 'Not covered' ? 'unfunded' : 'neutral';
     const actionLabel = sourceType === 'LinkedIn lead' ? 'View LinkedIn' : sourceType === 'Sessionize recommendation' ? 'Open group' : 'Open CFP';

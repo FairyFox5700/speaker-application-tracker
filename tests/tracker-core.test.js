@@ -107,3 +107,9 @@ test('marks verified travel-sponsored opportunities as funded', () => {
   assert.equal(sponsored.some(item => item.name === 'AzureDay Poland 2027'), true);
   assert.equal(sponsored.every(item => item.travelDetails.length > 10), true);
 });
+
+test('merges the generated Confs.tech catalog alongside Sessionize', () => {
+  const confstech = core.SEED_OPPORTUNITIES.filter(item => item.sourceType === 'Confs.tech CFP');
+  assert.equal(confstech.length > 0, true);
+  assert.equal(confstech.every(item => Array.isArray(item.topics) && item.topics.length > 0), true);
+});

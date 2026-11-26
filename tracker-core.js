@@ -123,6 +123,13 @@
     try { generatedSessionize = require('./sessionize-opportunities.js'); } catch (_) {}
   }
 
+  let generatedConfsTech = {items: []};
+  if (typeof globalThis !== 'undefined' && globalThis.ConfsTechOpportunities) {
+    generatedConfsTech = globalThis.ConfsTechOpportunities;
+  } else if (typeof require === 'function') {
+    try { generatedConfsTech = require('./confstech-opportunities.js'); } catch (_) {}
+  }
+
   let conferenceResearch = {items: [], byOpportunityId: {}};
   if (typeof globalThis !== 'undefined' && globalThis.SpeakerConferenceResearch) {
     conferenceResearch = globalThis.SpeakerConferenceResearch;
@@ -131,7 +138,7 @@
   }
 
   const opportunityMap = new Map();
-  [...MANUAL_OPPORTUNITIES, ...(generatedSessionize.items || [])].forEach(item => {
+  [...MANUAL_OPPORTUNITIES, ...(generatedSessionize.items || []), ...(generatedConfsTech.items || [])].forEach(item => {
     const urlKey = String(item.sourceUrl || '').toLowerCase().replace(/\/$/, '');
     const nameKey = String(item.name || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
     const key = urlKey || nameKey;
