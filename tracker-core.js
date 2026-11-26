@@ -186,6 +186,49 @@
   });
   const SEED_OPPORTUNITIES = [...opportunityMap.values()];
 
+  const SEED_SOURCES = [
+    {
+      id: 'sessionize', name: 'Sessionize', category: 'CFP discovery platform',
+      url: 'https://sessionize.com/', purpose: 'Primary CFP discovery and submission platform; already scraped automatically for this tracker.',
+      notes: '', lastCheckedAt: null
+    },
+    {
+      id: 'confs-tech', name: 'Confs.tech', category: 'CFP discovery platform',
+      url: 'https://confs.tech/', purpose: 'Open-source developer conference calendar with CFP deadlines; already scraped automatically for this tracker.',
+      notes: '', lastCheckedAt: null
+    },
+    {
+      id: 'papercall', name: 'PaperCall', category: 'CFP discovery platform',
+      url: 'https://www.papercall.io/', purpose: 'CFP submission platform, strong in dev/cloud/open-source conferences. Not yet automated here — JS-rendered listing, check manually.',
+      notes: '', lastCheckedAt: null
+    },
+    {
+      id: 'cfp-land', name: 'CFP Land', category: 'CFP discovery platform',
+      url: 'https://cfpland.com/', purpose: 'Community-run CFP aggregator/directory. Not yet automated here — check manually.',
+      notes: '', lastCheckedAt: null
+    },
+    {
+      id: 'calling-all-papers', name: 'CallingAllPapers', category: 'CFP discovery platform',
+      url: 'https://callingallpapers.com/', purpose: 'CFP discovery site. Not yet automated here — check manually.',
+      notes: '', lastCheckedAt: null
+    },
+    {
+      id: 'linux-foundation-events', name: 'Linux Foundation Events', category: 'Travel grant program',
+      url: 'https://events.linuxfoundation.org/', purpose: 'Travel funding program for accepted speakers/attendees at Linux Foundation events (eligibility varies by event).',
+      notes: '', lastCheckedAt: null
+    },
+    {
+      id: 'cncf', name: 'CNCF', category: 'Travel grant program',
+      url: 'https://www.cncf.io/', purpose: 'Cloud Native Computing Foundation travel/diversity funding for KubeCon and related events (eligibility varies).',
+      notes: '', lastCheckedAt: null
+    },
+    {
+      id: 'google-developer-community', name: 'Google Developer Community', category: 'Travel grant program',
+      url: 'https://developers.google.com/community', purpose: 'Google Developer community programs, occasionally including speaker/travel support for community events.',
+      notes: '', lastCheckedAt: null
+    }
+  ];
+
   const SEED_TALKS = [
     {
       id: 'reliable-agentic-workflows',
@@ -346,7 +389,21 @@
   }
 
   function initialState() {
-    return {version: 5, opportunities: clone(SEED_OPPORTUNITIES), talks: clone(SEED_TALKS), dismissedIds: []};
+    return {version: 5, opportunities: clone(SEED_OPPORTUNITIES), talks: clone(SEED_TALKS), dismissedIds: [], sources: clone(SEED_SOURCES)};
+  }
+
+  function reconcileSources(savedSources) {
+    const savedById = new Map((Array.isArray(savedSources) ? savedSources : []).map(item => [item.id, item]));
+    const known = SEED_SOURCES.map(item => {
+      const saved = savedById.get(item.id);
+      if (!saved) return clone(item);
+      const merged = {...item};
+      ['notes', 'lastCheckedAt'].forEach(field => { if (saved[field] !== undefined) merged[field] = saved[field]; });
+      return merged;
+    });
+    const knownIds = new Set(SEED_SOURCES.map(item => item.id));
+    const custom = (Array.isArray(savedSources) ? savedSources : []).filter(item => !knownIds.has(item.id));
+    return [...known, ...custom];
   }
 
   function loadState(storage) {
@@ -369,7 +426,7 @@
             return merged;
           });
           const custom = parsed.opportunities.filter(item => !catalogIds.has(item.id) && !dismissed.has(item.id));
-          return {...parsed, opportunities: [...catalog, ...custom], dismissedIds: [...dismissed]};
+          return {...parsed, opportunities: [...catalog, ...custom], dismissedIds: [...dismissed], sources: reconcileSources(parsed.sources)};
         }
       } catch (_) {}
     }
@@ -391,5 +448,5 @@
     return id;
   }
 
-  return {STORAGE_KEY, STATUSES, SEED_OPPORTUNITIES, SEED_TALKS, CONFERENCE_RESEARCH: conferenceResearch, EXPORT_FIELDS, deadlineState, activeOpportunities, matchTalk, bestTalk, resolveOpportunityResearch, filterOpportunities, toCsv, initialState, loadState, saveState, createId};
+  return {STORAGE_KEY, STATUSES, SEED_OPPORTUNITIES, SEED_TALKS, SEED_SOURCES, CONFERENCE_RESEARCH: conferenceResearch, EXPORT_FIELDS, deadlineState, activeOpportunities, matchTalk, bestTalk, resolveOpportunityResearch, filterOpportunities, toCsv, initialState, loadState, saveState, createId};
 });

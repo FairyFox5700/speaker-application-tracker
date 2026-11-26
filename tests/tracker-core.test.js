@@ -113,3 +113,33 @@ test('merges the generated Confs.tech catalog alongside Sessionize', () => {
   assert.equal(confstech.length > 0, true);
   assert.equal(confstech.every(item => Array.isArray(item.topics) && item.topics.length > 0), true);
 });
+
+test('ships a source map of CFP discovery platforms and travel-grant programs', () => {
+  assert.equal(core.SEED_SOURCES.length >= 8, true);
+  assert.equal(core.SEED_SOURCES.every(item => item.id && item.name && item.url && item.category), true);
+  const discovery = core.SEED_SOURCES.filter(item => item.category === 'CFP discovery platform');
+  const grants = core.SEED_SOURCES.filter(item => item.category === 'Travel grant program');
+  assert.equal(discovery.length >= 5, true);
+  assert.equal(grants.length >= 3, true);
+  assert.deepEqual(discovery.map(item => item.name).sort(), ['CFP Land', 'CallingAllPapers', 'Confs.tech', 'PaperCall', 'Sessionize'].sort());
+});
+
+test('reconciles saved source check-in state across reloads without losing new catalog entries', () => {
+  const storage = {
+    data: JSON.stringify({
+      version: 5,
+      opportunities: core.SEED_OPPORTUNITIES,
+      talks: core.SEED_TALKS,
+      dismissedIds: [],
+      sources: [{id: 'sessionize', name: 'Sessionize', category: 'CFP discovery platform', url: 'https://sessionize.com/', purpose: 'x', notes: '', lastCheckedAt: '2026-11-20T00:00:00.000Z'}]
+    }),
+    getItem() { return this.data; },
+    setItem(_key, value) { this.data = value; }
+  };
+  const state = core.loadState(storage);
+  const sessionize = state.sources.find(item => item.id === 'sessionize');
+  assert.equal(sessionize.lastCheckedAt, '2026-11-20T00:00:00.000Z');
+  assert.equal(state.sources.length, core.SEED_SOURCES.length);
+  const confsTech = state.sources.find(item => item.id === 'confs-tech');
+  assert.equal(confsTech.lastCheckedAt, null);
+});

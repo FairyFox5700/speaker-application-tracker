@@ -10,6 +10,7 @@
     list: $('opportunityList'), talks: $('talkList'), empty: $('emptyState'), count: $('resultCount'),
     search: $('search'), statusFilter: $('statusFilter'), sourceFilter: $('sourceFilter'), deadlineFilter: $('deadlineFilter'), priorityFilter: $('priorityFilter'), travelFilter: $('travelFilter'),
     researchList: $('researchList'), researchSearch: $('researchSearch'), researchCount: $('researchCount'), researchEmpty: $('researchEmpty'),
+    sourcesList: $('sourcesList'), sourcesCount: $('sourcesCount'),
     dialog: $('editorDialog'), form: $('opportunityForm'), toast: $('toast')
   };
 
@@ -83,6 +84,38 @@
     els.researchEmpty.hidden = result.count !== 0;
   }
 
+  function relativeChecked(value) {
+    if (!value) return 'Never checked';
+    const days = Math.round((Date.now() - new Date(value).getTime()) / 86400000);
+    if (days <= 0) return 'Checked today';
+    if (days === 1) return 'Checked yesterday';
+    return `Checked ${days} days ago`;
+  }
+
+  function sourceCardHtml(source) {
+    const stale = !source.lastCheckedAt || (Date.now() - new Date(source.lastCheckedAt).getTime()) > 14 * 86400000;
+    return `<article class="source-card" data-testid="source-item" data-source-id="${escapeHtml(source.id)}">
+      <div class="source-head"><span class="source-badge">${escapeHtml(source.category)}</span><span class="checked-badge ${stale ? 'stale' : 'fresh'}">${escapeHtml(relativeChecked(source.lastCheckedAt))}</span></div>
+      <h3>${escapeHtml(source.name)}</h3>
+      <p>${escapeHtml(source.purpose)}</p>
+      <div class="source-actions"><a class="quiet" href="${escapeHtml(researchUi.safeUrl(source.url))}" target="_blank" rel="noopener noreferrer">Visit</a><button class="quiet check-source-button" data-check-source-id="${escapeHtml(source.id)}" type="button">Mark checked today</button></div>
+    </article>`;
+  }
+
+  function renderSources() {
+    const sources = state.sources || [];
+    els.sourcesList.innerHTML = sources.map(sourceCardHtml).join('');
+    els.sourcesCount.textContent = `${sources.length} tracked sources`;
+  }
+
+  function markSourceChecked(sourceId) {
+    const source = (state.sources || []).find(item => item.id === sourceId);
+    if (!source) return;
+    source.lastCheckedAt = new Date().toISOString();
+    persist('Marked as checked');
+    renderSources();
+  }
+
   function activateView(viewId) {
     document.querySelectorAll('.view-tab').forEach(button => {
       const active = button.dataset.view === viewId;
@@ -129,6 +162,7 @@
     renderMetrics();
     renderTalks();
     renderResearch();
+    renderSources();
   }
 
   function clearFilters() {
@@ -289,6 +323,10 @@
     if (!select) return;
     const item = state.opportunities.find(x => x.id === select.dataset.statusId);
     if (item) { item.status = select.value; item.lastUpdated = new Date().toISOString().slice(0,10); persist('Status updated'); render(); }
+  });
+  els.sourcesList.addEventListener('click', event => {
+    const checkButton = event.target.closest('[data-check-source-id]');
+    if (checkButton) markSourceChecked(checkButton.dataset.checkSourceId);
   });
   document.querySelectorAll('.view-tab').forEach(button => button.addEventListener('click', () => activateView(button.dataset.view)));
   document.querySelector('.view-tabs').addEventListener('keydown', event => {

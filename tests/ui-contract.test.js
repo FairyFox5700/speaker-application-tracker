@@ -34,6 +34,17 @@ test('research is a third browsable view and loads its static UMD data before co
   assert.match(app, /renderResearch/);
 });
 
+test('sources is a fourth browsable view tracking discovery platforms and travel-grant programs', () => {
+  const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+  const app = fs.readFileSync(path.join(root, 'app.js'), 'utf8');
+  assert.match(html, /data-view="sources"/);
+  assert.match(html, /id="sources"[^>]*class="view"/);
+  assert.match(html, /data-testid="sources-list"/);
+  assert.match(app, /function renderSources\b/);
+  assert.match(app, /function markSourceChecked\b/);
+  assert.match(app, /data-check-source-id/);
+});
+
 test('mobile CSS prevents page overflow and keeps controls touch sized', () => {
   const css = fs.readFileSync(path.join(root, 'styles.css'), 'utf8');
   assert.match(css, /overflow-wrap:\s*anywhere/);

@@ -32,6 +32,7 @@
       <button class="view-tab active" id="pipeline-tab" type="button" data-view="pipeline" role="tab" aria-controls="pipeline" aria-selected="true">Quest map</button>
       <button class="view-tab" id="talks-tab" type="button" data-view="talks" role="tab" aria-controls="talks" aria-selected="false">Move set</button>
       <button class="view-tab" id="research-tab" type="button" data-view="research" role="tab" aria-controls="research" aria-selected="false">Research Dex <span class="tab-count">15</span></button>
+      <button class="view-tab" id="sources-tab" type="button" data-view="sources" role="tab" aria-controls="sources" aria-selected="false">Source map</button>
     </nav>
 
     <section id="pipeline" class="view active" aria-labelledby="pipeline-title">
@@ -71,6 +72,14 @@
       <label class="research-search"><span class="sr-only">Search conference research</span><input id="researchSearch" type="search" placeholder="Search conferences, prior sessions, patterns or talk ideas"></label>
       <div id="researchList" class="research-grid" data-testid="research-list"></div>
       <div id="researchEmpty" class="empty-state" hidden><h3>No research matches</h3><p>Try a different conference, session or topic.</p></div>
+    </section>
+
+    <section id="sources" class="view" role="tabpanel" aria-labelledby="sources-tab" hidden>
+      <div class="section-heading">
+        <div><p class="kicker">DISCOVERY & TRAVEL-GRANT SOURCES</p><h2>Source map</h2><p class="research-scope">CFP discovery platforms and travel-grant programs to check regularly, separate from tracked conference opportunities above.</p></div>
+        <p id="sourcesCount" class="result-count" aria-live="polite"></p>
+      </div>
+      <div id="sourcesList" class="sources-grid" data-testid="sources-list"></div>
     </section>
 
     <footer class="footer-tools">
