@@ -4,7 +4,7 @@
   root.ConfsTechOpportunities = data;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   return {
-  "generatedAt": "2026-11-26T07:12:52.410541+00:00",
+  "generatedAt": "2026-11-26T07:20:56.091325+00:00",
   "cutoff": "2026-11-26",
   "checkedFiles": 24,
   "missingFiles": 8,
