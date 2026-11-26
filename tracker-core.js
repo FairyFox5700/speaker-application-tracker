@@ -113,6 +113,46 @@
       topics: ['Agentic AI', 'Copilot Studio', 'Copilot Extensibility', 'GitHub Copilot', 'Microsoft 365 Copilot'], audience: ['Developers', 'Architects', 'Engineering leaders'],
       status: 'Not started', priority: 'High', matchedTalkIds: ['copilot-to-production'],
       nextAction: 'Contact the user group and offer the production Copilot evaluation talk.', notes: '', submittedAt: '', confirmationReference: '', lastUpdated: '2026-11-07'
+    },
+    {
+      id: 'code-europe-ai-2027', name: 'Code Europe AI 2027', category: 'AI, ML and engineering conference',
+      eventDate: '2027-05-01', deadlineDate: '2027-02-01', deadlineTimezone: 'Europe/Warsaw',
+      location: 'Poland (city not yet confirmed)', deliveryMode: 'In-person', sourceType: 'Official CFP',
+      source: 'Official codeeurope.pl CFP page', sourceUrl: 'https://codeeurope.pl/cfp', sourceStatus: 'CFP open', sourceScore: 0.3,
+      travelSupport: 'Not stated', travelDetails: '⚠️ UNVERIFIED — a third-party research digest claimed travel and accommodation are covered with no speaker fee, but the live CFP page does not display a deadline or financial terms. Confirm directly with the organizer before relying on this.',
+      topics: ['AI Engineering', 'Cloud / DevOps'], audience: ['Developers', 'Architects', 'Engineering leaders'],
+      status: 'Not started', priority: 'Low', matchedTalkIds: [],
+      nextAction: '⚠️ Event date and CFP deadline are estimates — verify on codeeurope.pl/cfp before preparing a submission.', notes: 'Added from an unverified research digest on 2026-11-26; eventDate and deadlineDate are estimates, not confirmed on the live site.', submittedAt: '', confirmationReference: '', lastUpdated: '2026-11-26'
+    },
+    {
+      id: 'civo-navigate-london-2027', name: 'Civo Navigate London 2027', category: 'cloud and AI sovereignty conference',
+      eventDate: '2027-09-29', deadlineDate: '2027-06-01', deadlineTimezone: 'Europe/London',
+      location: 'London, U.K.', deliveryMode: 'In-person', sourceType: 'Official CFP',
+      source: 'Official civo.com Navigate London CFP page', sourceUrl: 'https://www.civo.com/navigate/london/2027/cfps', sourceStatus: 'CFP open', sourceScore: 0.25,
+      travelSupport: 'Not stated', travelDetails: '⚠️ UNVERIFIED — a third-party research digest explicitly noted speaker funding is not confirmed for this event. The live page only shows 2025 event recap content, no visible 2027 CFP deadline or terms yet. Confirm directly with the organizer.',
+      topics: ['Cloud / DevOps'], audience: ['Developers', 'Architects', 'Engineering leaders'],
+      status: 'Not started', priority: 'Low', matchedTalkIds: [],
+      nextAction: '⚠️ Event date and CFP deadline are estimates based on the 2025 edition timing — verify on civo.com/navigate/london before preparing a submission.', notes: 'Added from an unverified research digest on 2026-11-26; eventDate and deadlineDate are estimates, not confirmed on the live site.', submittedAt: '', confirmationReference: '', lastUpdated: '2026-11-26'
+    },
+    {
+      id: 'arc-of-ai-2027', name: 'Arc of AI 2027', category: 'applied AI craft conference',
+      eventDate: '2027-06-01', deadlineDate: '2027-03-01', deadlineTimezone: 'UTC',
+      location: 'Location not stated', deliveryMode: 'In-person', sourceType: 'Official CFP',
+      source: 'Official arcofai.com CFP page', sourceUrl: 'https://www.arcofai.com/cfp', sourceStatus: 'CFP open', sourceScore: 0.2,
+      travelSupport: 'Not stated', travelDetails: '⚠️ UNVERIFIED — a third-party research digest claimed economy flights plus 4 hotel nights within a limited travel budget, but arcofai.com is a JavaScript-rendered site with no publicly fetchable deadline or terms. Confirm directly with the organizer before relying on this.',
+      topics: ['Agentic AI', 'AI Engineering'], audience: ['Developers', 'Architects', 'Engineering leaders'],
+      status: 'Not started', priority: 'Low', matchedTalkIds: [],
+      nextAction: '⚠️ Event date and CFP deadline are placeholders — no public date information could be found. Verify on arcofai.com before preparing a submission.', notes: 'Added from an unverified research digest on 2026-11-26; eventDate and deadlineDate are placeholders, not confirmed on the live site.', submittedAt: '', confirmationReference: '', lastUpdated: '2026-11-26'
+    },
+    {
+      id: 'eppc27-manual-override', name: 'European Power Platform Conference (EPPC27)', category: 'Microsoft Power Platform conference',
+      eventDate: '2027-06-14', deadlineDate: '2027-01-13', deadlineTimezone: 'UTC',
+      location: 'Location not stated', deliveryMode: 'In-person', sourceType: 'Sessionize public CFP',
+      source: 'Sessionize public open CFP', sourceUrl: 'https://sessionize.com/eppc27/', sourceStatus: 'CFP open', sourceScore: 0.89,
+      travelSupport: 'Travel sponsored', travelDetails: '3 nights accommodation covered in conference hotel (confirmed on the Sessionize CFP page). ⚠️ UNVERIFIED addition: a third-party research digest also claimed a €800 (1–2 sessions) or €2,000 (full-day tutorial) speaker compensation, with Microsoft employees excluded — this could not be confirmed on the public ESPC/EPPC pages. Confirm directly before relying on a speaker fee.',
+      topics: ['Azure', 'Copilot', 'AI Engineering', 'RAG / MCP', 'Microsoft Data'], audience: ['Developers', 'Architects', 'Engineering leaders'],
+      status: 'Not started', priority: 'High', matchedTalkIds: [],
+      nextAction: 'Review the CFP and submit the best-matching talk; ask the organizer to confirm the speaker compensation terms.', notes: 'Hotel coverage confirmed via Sessionize scrape; speaker-fee claim from an unverified research digest added 2026-11-26.', submittedAt: '', confirmationReference: '', lastUpdated: '2026-11-26'
     }
   ];
 
