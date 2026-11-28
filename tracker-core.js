@@ -352,6 +352,38 @@
     };
   }
 
+  const NO_CITY_PATTERNS = [/^online$/i, /location not stated/i, /city not yet confirmed/i, /not yet confirmed/i, /not stated/i, /^tbd$/i, /^tba$/i];
+
+  function extractCity(location) {
+    const raw = String(location || '').trim();
+    if (!raw) return null;
+    // Locations often look like "Warsaw, Poland", "Atlanta, Georgia, U.S.", "Anaheim, California, U.S. · Online"
+    // or "San Francisco, U.S. · Salesforce+". Take the first comma-delimited segment, then strip
+    // any trailing " · venue" style annotations, and reject segments that are clearly not a city.
+    const firstSegment = raw.split(',')[0].split('·')[0].trim();
+    if (!firstSegment) return null;
+    if (NO_CITY_PATTERNS.some(pattern => pattern.test(firstSegment))) return null;
+    if (NO_CITY_PATTERNS.some(pattern => pattern.test(raw)) && !raw.includes(',')) return null;
+    return firstSegment;
+  }
+
+  // Keywords used to infer trip-sponsorship when the structured `travelSupport` field is missing
+  // or left as "Not stated" but the free-text travel/notes description actually mentions it.
+  const SPONSORED_TEXT = /\b(sponsor(?:ed|s)?|travel (?:stipend|budget|allowance|grant)|covers? (?:travel|flights?|hotel)|hotel (?:nights?|covered|stay covered)|(?:travel|flights?|hotel|accommodation)(?:s)?(?: and (?:travel|flights?|hotel|accommodation)s?)? (?:are |is )?(?:fully |partially )?covered|reimburse(?:d|ment)?|flights? (?:and|plus|\+) hotel|complimentary (?:travel|hotel))\b/i;
+  const NOT_SPONSORED_TEXT = /\b(not covered|not sponsored|no travel (?:support|budget|stipend)|travel (?:is )?not (?:provided|covered)|does not (?:cover|publish|provide)|not publish)\b/i;
+  const PARTIAL_TEXT = /\b(partial|conditional|depends on|limited (?:travel )?budget|up to)\b/i;
+
+  function inferTravelSupport(item) {
+    const explicit = item && item.travelSupport;
+    if (explicit && explicit !== 'Not stated') return explicit;
+    if (item && item.deliveryMode === 'Online' && !explicit) return 'Online / no trip';
+    const text = [item && item.travelDetails, item && item.notes].filter(Boolean).join(' ');
+    if (!text) return explicit || 'Not stated';
+    if (NOT_SPONSORED_TEXT.test(text)) return 'Not covered';
+    if (SPONSORED_TEXT.test(text)) return PARTIAL_TEXT.test(text) ? 'Partial / conditional' : 'Travel sponsored';
+    return explicit || 'Not stated';
+  }
+
   function filterOpportunities(items, filters, now) {
     const f = filters || {};
     const search = String(f.search || '').trim().toLowerCase();
@@ -362,8 +394,9 @@
       if (f.priority && f.priority !== 'all' && item.priority !== f.priority) return false;
       if (f.source && f.source !== 'all' && (item.sourceType || 'Official CFP') !== f.source) return false;
       if (f.mode && f.mode !== 'all' && item.deliveryMode !== f.mode) return false;
+      if (f.city && f.city !== 'all' && extractCity(item.location) !== f.city) return false;
       if (f.travel && f.travel !== 'all') {
-        const travel = item.travelSupport || (item.deliveryMode === 'Online' ? 'Online / no trip' : 'Not stated');
+        const travel = inferTravelSupport(item);
         if (f.travel === 'sponsored' && travel !== 'Travel sponsored') return false;
         if (f.travel === 'online' && travel !== 'Online / no trip') return false;
         if (f.travel === 'unstated' && (travel === 'Travel sponsored' || travel === 'Online / no trip')) return false;
@@ -448,5 +481,5 @@
     return id;
   }
 
-  return {STORAGE_KEY, STATUSES, SEED_OPPORTUNITIES, SEED_TALKS, SEED_SOURCES, CONFERENCE_RESEARCH: conferenceResearch, EXPORT_FIELDS, deadlineState, activeOpportunities, matchTalk, bestTalk, resolveOpportunityResearch, filterOpportunities, toCsv, initialState, loadState, saveState, createId};
+  return {STORAGE_KEY, STATUSES, SEED_OPPORTUNITIES, SEED_TALKS, SEED_SOURCES, CONFERENCE_RESEARCH: conferenceResearch, EXPORT_FIELDS, deadlineState, activeOpportunities, matchTalk, bestTalk, resolveOpportunityResearch, filterOpportunities, extractCity, inferTravelSupport, toCsv, initialState, loadState, saveState, createId};
 });

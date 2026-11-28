@@ -8,7 +8,7 @@
   const $ = id => document.getElementById(id);
   const els = {
     list: $('opportunityList'), talks: $('talkList'), empty: $('emptyState'), count: $('resultCount'),
-    search: $('search'), statusFilter: $('statusFilter'), sourceFilter: $('sourceFilter'), deadlineFilter: $('deadlineFilter'), priorityFilter: $('priorityFilter'), travelFilter: $('travelFilter'),
+    search: $('search'), statusFilter: $('statusFilter'), sourceFilter: $('sourceFilter'), deadlineFilter: $('deadlineFilter'), priorityFilter: $('priorityFilter'), travelFilter: $('travelFilter'), cityFilter: $('cityFilter'),
     researchList: $('researchList'), researchSearch: $('researchSearch'), researchCount: $('researchCount'), researchEmpty: $('researchEmpty'),
     sourcesList: $('sourcesList'), sourcesCount: $('sourcesCount'),
     dialog: $('editorDialog'), form: $('opportunityForm'), toast: $('toast')
@@ -41,7 +41,14 @@
   }
 
   function currentFilters() {
-    return {search: els.search.value, status: els.statusFilter.value, source: els.sourceFilter.value, deadline: els.deadlineFilter.value, priority: els.priorityFilter.value, travel: els.travelFilter.value};
+    return {search: els.search.value, status: els.statusFilter.value, source: els.sourceFilter.value, deadline: els.deadlineFilter.value, priority: els.priorityFilter.value, travel: els.travelFilter.value, city: els.cityFilter.value};
+  }
+
+  function populateCityFilter() {
+    const cities = [...new Set(core.activeOpportunities(state.opportunities).map(item => core.extractCity(item.location)).filter(Boolean))].sort((a, b) => a.localeCompare(b));
+    const previous = els.cityFilter.value;
+    els.cityFilter.innerHTML = '<option value="all">All cities</option>' + cities.map(city => `<option value="${escapeHtml(city)}">${escapeHtml(city)}</option>`).join('');
+    els.cityFilter.value = cities.includes(previous) ? previous : 'all';
   }
 
   function renderMetrics() {
@@ -60,7 +67,7 @@
     const hasResearch = resolution.kind === 'researched';
     const sourceType = item.sourceType || 'Official CFP';
     const sourceClass = sourceType === 'LinkedIn lead' ? 'linkedin' : sourceType === 'Confs.tech CFP' ? 'confstech' : sourceType.startsWith('Sessionize') ? 'sessionize' : '';
-    const travel = item.travelSupport || (item.deliveryMode === 'Online' ? 'Online / no trip' : 'Not stated');
+    const travel = core.inferTravelSupport(item);
     const travelClass = travel === 'Travel sponsored' ? 'funded' : travel === 'Partial / conditional' ? 'partial' : travel === 'Not covered' ? 'unfunded' : 'neutral';
     const actionLabel = sourceType === 'LinkedIn lead' ? 'View LinkedIn' : sourceType === 'Sessionize recommendation' ? 'Open group' : 'Open CFP';
     return `<article class="opportunity-card" data-testid="opportunity-item" data-record-id="${escapeHtml(item.id)}">
@@ -149,6 +156,7 @@
   }
 
   function render() {
+    populateCityFilter();
     const filtered = core.filterOpportunities(state.opportunities, currentFilters());
     filtered.sort((a, b) => {
       const ad = core.deadlineState(a.deadlineDate).days;
@@ -172,6 +180,7 @@
     els.deadlineFilter.value = 'all';
     els.priorityFilter.value = 'all';
     els.travelFilter.value = 'all';
+    els.cityFilter.value = 'all';
     render();
   }
 
