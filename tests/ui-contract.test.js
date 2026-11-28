@@ -32,6 +32,9 @@ test('research is a third browsable view and loads its static UMD data before co
   assert.ok(html.indexOf('research-ui.js') < html.indexOf('app.js'));
   assert.match(app, /data-research-id/);
   assert.match(app, /renderResearch/);
+  assert.match(html, /data-testid="research-engine-link"/);
+  assert.match(html, /https:\/\/conference-research-engine\.vercel\.app\/docs/);
+  assert.match(html, /rel="noopener noreferrer"/);
 });
 
 test('sources is a fourth browsable view tracking discovery platforms and travel-grant programs', () => {
