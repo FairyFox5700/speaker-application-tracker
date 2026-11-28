@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="A focused speaker application and CFP pipeline for agentic AI, Azure, cloud and developer audiences.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://conference-research-engine.vercel.app; base-uri 'none'; form-action 'self'">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230878d1'/%3E%3Cpath d='M18 45V19h16c8 0 13 4 13 11S42 41 34 41h-8v4zm8-12h8c3 0 5-1 5-3s-2-3-5-3h-8z' fill='white'/%3E%3C/svg%3E">
   <title>Speaker Application Tracker</title>
   <link rel="stylesheet" href="styles.css">
@@ -70,6 +71,13 @@
         <div><p class="kicker">CONFERENCE RESEARCH DEX</p><h2>Past programs & winning moves</h2><p class="research-scope">15 priority CFPs researched; others remain pending and continue to use the generic talk matcher.</p><a class="quiet research-engine-link" data-testid="research-engine-link" href="https://conference-research-engine.vercel.app/docs" target="_blank" rel="noopener noreferrer">Open AI Research Engine ↗</a></div>
         <p id="researchCount" class="result-count" aria-live="polite"></p>
       </div>
+      <section id="enginePanel" class="engine-panel" data-testid="engine-panel" data-state="idle" aria-labelledby="engineTitle" hidden tabindex="-1">
+        <header class="engine-head"><div><p class="kicker">LIVE AI RESEARCH ENGINE</p><h3 id="engineTitle">Conference research</h3></div><button class="icon-button" id="engineClose" type="button" aria-label="Close AI research">×</button></header>
+        <p class="engine-disclosure">This sends public conference fields plus your talk titles, pitches and topics to the research engine. Notes, statuses and next actions stay in this browser.</p>
+        <div id="engineStatus" class="engine-status" role="status" aria-live="polite" data-testid="engine-status"></div>
+        <div id="engineBody" data-testid="engine-report" aria-busy="false"></div>
+        <div class="engine-actions"><button class="quiet" id="engineRetry" type="button" hidden>Retry</button><button class="quiet" id="engineCancel" type="button" hidden>Cancel</button></div>
+      </section>
       <label class="research-search"><span class="sr-only">Search conference research</span><input id="researchSearch" type="search" placeholder="Search conferences, prior sessions, patterns or talk ideas"></label>
       <div id="researchList" class="research-grid" data-testid="research-list"></div>
       <div id="researchEmpty" class="empty-state" hidden><h3>No research matches</h3><p>Try a different conference, session or topic.</p></div>
@@ -84,7 +92,7 @@
     </section>
 
     <footer class="footer-tools">
-      <div><strong>Local-first</strong><span>Data stays in this browser.</span></div>
+      <div><strong>Local-first</strong><span>Data stays in this browser unless you run AI research.</span></div>
       <div class="footer-actions">
         <button class="quiet" id="exportJson" data-testid="export-json" type="button">Export JSON</button>
         <button class="quiet" id="exportCsv" data-testid="export-csv" type="button">Export CSV</button>
@@ -126,6 +134,7 @@
   <script src="conference-research.js"></script>
   <script src="tracker-core.js"></script>
   <script src="research-ui.js"></script>
+  <script src="research-engine-client.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

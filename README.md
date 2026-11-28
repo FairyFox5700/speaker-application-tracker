@@ -9,6 +9,7 @@ A local-first CFP and speaker-application pipeline focused on agentic systems, A
 - 132 total tracked opportunities in the current seed catalog
 - Curated prior-edition research for 15 priority CFPs, with direct sources and two conference-specific talk adaptations each
 - A browsable Research view with conference/session search; opportunities outside the 15-record priority set remain pending and use the generic matcher
+- Live, evidence-backed AI research from every conference card, with explicit coverage grades and unpadded insufficient-evidence results
 - Daily refresh at 05:45 UTC removes expired CFPs and deploys newly discovered matches
 - Three LinkedIn speaker leads with explicit future deadlines and direct source links
 - One signed-in Sessionize Discover recommendation
@@ -45,4 +46,4 @@ Open <http://localhost:4177/>.
 npm test
 ```
 
-The app has no runtime dependencies and needs no backend. All user data remains in the current browser unless exported.
+The tracking workflow has no runtime dependencies and remains local-first. Running **AI research** sends only allowlisted public conference fields plus talk titles, pitches, topics, and audience labels to the hosted research engine; notes, statuses, next actions, and confirmation references remain in the browser.

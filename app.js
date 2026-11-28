@@ -2,14 +2,17 @@
   'use strict';
   const core = window.SpeakerTrackerCore;
   const researchUi = window.SpeakerResearchUi;
+  const engineClient = window.SpeakerResearchEngineClient;
   let state = core.loadState(localStorage);
   let activeEditId = null;
+  let engineRun = {token: 0, controller: null, opportunityId: null};
 
   const $ = id => document.getElementById(id);
   const els = {
     list: $('opportunityList'), talks: $('talkList'), empty: $('emptyState'), count: $('resultCount'),
     search: $('search'), statusFilter: $('statusFilter'), sourceFilter: $('sourceFilter'), deadlineFilter: $('deadlineFilter'), priorityFilter: $('priorityFilter'), travelFilter: $('travelFilter'), cityFilter: $('cityFilter'),
     researchList: $('researchList'), researchSearch: $('researchSearch'), researchCount: $('researchCount'), researchEmpty: $('researchEmpty'),
+    enginePanel: $('enginePanel'), engineTitle: $('engineTitle'), engineStatus: $('engineStatus'), engineBody: $('engineBody'), engineRetry: $('engineRetry'), engineCancel: $('engineCancel'),
     sourcesList: $('sourcesList'), sourcesCount: $('sourcesCount'),
     dialog: $('editorDialog'), form: $('opportunityForm'), toast: $('toast')
   };
@@ -74,7 +77,7 @@
       <div class="opportunity-title"><span class="priority-dot ${escapeHtml(item.priority)}" aria-hidden="true"></span><div><div class="record-badges"><span class="source-badge ${sourceClass}">${escapeHtml(sourceType)}</span><span class="travel-badge ${travelClass}">${travel === 'Travel sponsored' ? 'Trip sponsored' : escapeHtml(travel)}</span>${hasResearch ? '<span class="research-badge">Research ready</span>' : ''}</div><h3>${escapeHtml(item.name)}</h3><p>${escapeHtml(item.category)} · ${escapeHtml(item.location)} · event ${dateLabel(item.eventDate)}</p></div></div>
       <div class="status-cell"><span class="label">Application</span><select class="status-select" data-status-id="${escapeHtml(item.id)}" aria-label="Application status for ${escapeHtml(item.name)}">${statusOptions(item.status)}</select></div>
       <div class="deadline"><span class="label">CFP deadline</span><strong>${dateLabel(item.deadlineDate)}</strong><span class="deadline-badge ${deadline.key}">${escapeHtml(deadline.label)}</span></div>
-      <div class="card-actions"><a class="primary cfp-link" href="${escapeHtml(researchUi.safeUrl(item.sourceUrl))}" target="_blank" rel="noopener noreferrer">${actionLabel}</a>${hasResearch ? `<button class="quiet research-button" data-research-id="${escapeHtml(item.id)}" type="button">Research</button>` : `<a class="quiet research-topic-link" data-testid="research-topic" href="${escapeHtml(topicSearchUrl(item))}" target="_blank" rel="noopener noreferrer">Research topic</a>`}<button class="quiet edit-button" data-edit-id="${escapeHtml(item.id)}" data-testid="edit-opportunity" type="button">Edit</button></div>
+      <div class="card-actions"><a class="primary cfp-link" href="${escapeHtml(researchUi.safeUrl(item.sourceUrl))}" target="_blank" rel="noopener noreferrer">${actionLabel}</a>${hasResearch ? `<button class="quiet research-button" data-research-id="${escapeHtml(item.id)}" type="button">Research</button>` : `<a class="quiet research-topic-link" data-testid="research-topic" href="${escapeHtml(topicSearchUrl(item))}" target="_blank" rel="noopener noreferrer">Research topic</a>`}<button class="quiet engine-button" data-engine-id="${escapeHtml(item.id)}" data-testid="engine-research" type="button">AI research</button><button class="quiet edit-button" data-edit-id="${escapeHtml(item.id)}" data-testid="edit-opportunity" type="button">Edit</button></div>
       <div class="talk-match"><span class="label">Best talk match</span>${match ? `<strong>${escapeHtml(match.talk.title)} <span class="score">${match.score}%</span></strong><small>${escapeHtml(match.reasons.slice(0,2).join(' · '))}</small>` : '<strong>No talk idea yet</strong>'}</div>
       <div class="next-action"><span><b>Travel:</b> ${escapeHtml(item.travelDetails || travel)}</span><span><b>Next:</b> ${escapeHtml(item.nextAction || 'Choose a next action.')}</span></div>
     </article>`;
@@ -153,6 +156,54 @@
       target.scrollIntoView({block: 'start'});
       target.focus({preventScroll: true});
     }
+  }
+
+  function closeEngine() {
+    engineRun.controller?.abort();
+    engineRun = {token: engineRun.token + 1, controller: null, opportunityId: null};
+    els.enginePanel.hidden = true;
+    els.enginePanel.dataset.state = 'idle';
+    els.engineBody.innerHTML = '';
+    els.engineStatus.textContent = '';
+  }
+
+  function setEngineError(result) {
+    els.enginePanel.dataset.state = 'error';
+    els.engineBody.setAttribute('aria-busy', 'false');
+    els.engineStatus.textContent = result.message;
+    els.engineRetry.hidden = !result.retryable;
+    els.engineCancel.hidden = true;
+  }
+
+  async function runEngine(opportunityId) {
+    const item = state.opportunities.find(opportunity => opportunity.id === opportunityId);
+    if (!item) return;
+    engineRun.controller?.abort();
+    const controller = new AbortController();
+    const token = engineRun.token + 1;
+    engineRun = {token, controller, opportunityId};
+    activateView('research');
+    els.enginePanel.hidden = false;
+    els.enginePanel.dataset.state = 'loading';
+    els.engineTitle.textContent = `Researching ${item.name}`;
+    els.engineStatus.textContent = 'Collecting conference history and current public signals. This may take up to 55 seconds.';
+    els.engineBody.innerHTML = '';
+    els.engineBody.setAttribute('aria-busy', 'true');
+    els.engineRetry.hidden = true;
+    els.engineCancel.hidden = false;
+    els.enginePanel.scrollIntoView({block: 'start'});
+    els.enginePanel.focus({preventScroll: true});
+    const result = await engineClient.requestReport({opportunity: item, talks: state.talks, signal: controller.signal});
+    if (token !== engineRun.token || result.kind === 'cancelled') return;
+    if (result.kind === 'error') { setEngineError(result); return; }
+    const talksById = Object.fromEntries(state.talks.map(talk => [talk.id, talk]));
+    els.enginePanel.dataset.state = result.report.status === 'insufficient_evidence' ? 'insufficient' : 'report';
+    els.engineTitle.textContent = result.report.conference.name;
+    els.engineStatus.textContent = result.report.status === 'insufficient_evidence' ? 'Partial report: the engine found limited verified evidence and did not pad recommendations.' : 'Live evidence-backed report complete.';
+    els.engineBody.innerHTML = researchUi.renderEngineReport(result.report, talksById);
+    els.engineBody.setAttribute('aria-busy', 'false');
+    els.engineRetry.hidden = false;
+    els.engineCancel.hidden = true;
   }
 
   function render() {
@@ -285,6 +336,7 @@
 
   function resetData() {
     if (!window.confirm('Replace all saved data with the current open CFPs and starter talk ideas?')) return;
+    closeEngine();
     state = core.initialState();
     persist('Seed data restored');
     clearFilters();
@@ -295,6 +347,7 @@
     try {
       const parsed = JSON.parse(await file.text());
       if (!parsed || parsed.version !== 5 || !Array.isArray(parsed.opportunities) || !Array.isArray(parsed.talks)) throw new Error('Unsupported file');
+      closeEngine();
       state = {...parsed, opportunities: core.activeOpportunities(parsed.opportunities)}; persist('Backup imported'); clearFilters();
     } catch (error) {
       window.alert(`Could not import this file: ${error.message}`);
@@ -321,7 +374,12 @@
   $('resetData').addEventListener('click', resetData);
   $('importJson').addEventListener('change', event => importJson(event.target.files[0]));
   els.researchSearch.addEventListener('input', renderResearch);
+  $('engineClose').addEventListener('click', closeEngine);
+  els.engineCancel.addEventListener('click', closeEngine);
+  els.engineRetry.addEventListener('click', () => { if (engineRun.opportunityId) runEngine(engineRun.opportunityId); });
   els.list.addEventListener('click', event => {
+    const engineButton = event.target.closest('[data-engine-id]');
+    if (engineButton) { runEngine(engineButton.dataset.engineId); return; }
     const researchButton = event.target.closest('[data-research-id]');
     if (researchButton) { openResearch(researchButton.dataset.researchId); return; }
     const editButton = event.target.closest('[data-edit-id]');

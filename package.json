@@ -5,6 +5,6 @@
   "description": "Local-first CFP and speaker application pipeline",
   "scripts": {
     "test": "node --test tests/*.test.js",
-    "check": "node --check conference-research.js && node --check tracker-core.js && node --check research-ui.js && node --check app.js && node --check confstech-opportunities.js && npm test"
+    "check": "node --check conference-research.js && node --check tracker-core.js && node --check research-ui.js && node --check research-engine-client.js && node --check app.js && node --check confstech-opportunities.js && npm test"
   }
 }

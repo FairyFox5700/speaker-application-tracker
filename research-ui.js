@@ -70,5 +70,26 @@
     return {count: filtered.length, html: filtered.map(record => renderResearchRecord(record, talksById)).join('')};
   }
 
-  return {escapeHtml, safeUrl, renderResearchRecord, renderResearchCatalog};
+  function renderEngineReport(report, talksById) {
+    const talks = talksById || {};
+    const recommendations = (report.recommendations || []).slice(0, 20);
+    const sessions = (((report.history || {}).sessions) || []).slice(0, 10);
+    const evidence = (report.evidence || []).slice(0, 30);
+    const limitations = (report.limitations || []).slice(0, 20);
+    const score = value => Math.max(0, Math.min(100, Math.round((Number(value) || 0) / 100)));
+    const status = report.status === 'insufficient_evidence' ? 'Insufficient evidence' : 'Live research complete';
+    const coverage = report.coverage || {};
+    const sessionHtml = sessions.map(session => `<li class="research-session"><strong>${escapeHtml(session.title)}</strong><span class="evidence-tag">${escapeHtml(session.conference_year || 'Year unverified')}</span><p>${escapeHtml((session.topics || []).join(' · '))}</p>${safeUrl(session.source_url) === '#' ? '' : externalLink(session.source_url, 'Source')}</li>`).join('');
+    const recommendationHtml = recommendations.map(item => {
+      const base = talks[item.base_talk_id] || {};
+      const tools = (item.tools_and_frameworks || []).slice(0, 8).map(tool => `<span class="chip">${escapeHtml(tool)}</span>`).join('');
+      return `<article class="research-idea engine-idea"><header><span class="score">${score(item.score_bp)}/100</span><h4>${escapeHtml(item.title)}</h4></header><p>${escapeHtml(item.description)}</p><p><b>Why now:</b> ${escapeHtml(item.why_it_matters)}</p><p><b>Current signal:</b> ${escapeHtml(item.current_industry_developments)}</p><p><b>Conference connection:</b> ${escapeHtml(item.historical_conference_connection)}</p><p><b>Demo:</b> ${escapeHtml(item.potential_demo)}</p><div class="chips">${tools}</div><p class="base-talk"><span class="base-label">Base reusable talk:</span> ${escapeHtml(base.title || item.base_talk_id || 'New talk')}</p></article>`;
+    }).join('');
+    const evidenceHtml = evidence.map(item => `<li id="engine-${escapeHtml(String(item.evidence_id || '').replace(/[^a-z0-9_-]/gi, ''))}"><span class="evidence-tag">${escapeHtml(kindLabel(item.kind))}</span> ${safeUrl(item.source_url) === '#' ? escapeHtml(item.source_url) : externalLink(item.source_url, item.source_url)}<blockquote>${escapeHtml(item.excerpt)}</blockquote></li>`).join('');
+    const limitationHtml = limitations.map(item => `<li>${escapeHtml(item)}</li>`).join('');
+    const noRecommendations = recommendations.length ? '' : '<p class="empty-state">No topic had enough current evidence for a recommendation. The engine did not pad the result.</p>';
+    return `<article class="research-card engine-report-card"><header class="research-card-head"><div><p class="kicker">${escapeHtml(status)}</p><h3>${escapeHtml((report.conference || {}).name)}</h3></div><span class="reviewed-date">As of ${escapeHtml(report.as_of)}</span></header><p class="engine-coverage">Coverage: <strong>${escapeHtml(coverage.grade || 'unknown')}</strong> · ${escapeHtml(coverage.verified_prior_sessions || 0)} verified prior sessions · ${escapeHtml(coverage.signal_sources || 0)} live signal sources</p>${noRecommendations}<section><h4>Recommended topics</h4><div class="idea-grid engine-idea-grid">${recommendationHtml}</div></section><section><h4>Verified programme sessions</h4><ul class="session-list">${sessionHtml || '<li>No extractable prior sessions were verified.</li>'}</ul></section><div class="research-foot"><section><h4>Evidence</h4><details><summary>${evidence.length} sources</summary><ul>${evidenceHtml}</ul></details></section><section><h4>Limitations</h4><ul>${limitationHtml}</ul></section></div></article>`;
+  }
+
+  return {escapeHtml, safeUrl, renderResearchRecord, renderResearchCatalog, renderEngineReport};
 });
