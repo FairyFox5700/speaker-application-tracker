@@ -60,6 +60,8 @@ test('mobile CSS prevents page overflow and keeps controls touch sized', () => {
   assert.match(css, /min-height:\s*44px/);
   assert.match(css, /@media\s*\(max-width:\s*700px\)/);
   assert.match(css, /\.research-grid/);
+  assert.match(css, /\.engine-head \.icon-button\{flex:0 0 44px/);
+  assert.match(css, /\.engine-idea-grid\{grid-template-columns:minmax\(0,1fr\)/);
 });
 
 test('ships an original monster-quest visual theme without external franchise assets', () => {
