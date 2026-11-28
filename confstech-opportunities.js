@@ -4,8 +4,8 @@
   root.ConfsTechOpportunities = data;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   return {
-  "generatedAt": "2026-11-27T15:36:24.997246+00:00",
-  "cutoff": "2026-11-27",
+  "generatedAt": "2026-11-28T14:32:02.625606+00:00",
+  "cutoff": "2026-11-28",
   "checkedFiles": 24,
   "missingFiles": 8,
   "retainedCount": 7,
@@ -43,7 +43,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-27"
+      "lastUpdated": "2026-11-28"
     },
     {
       "id": "confstech-dutch-ai-conference-2027",
@@ -77,7 +77,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-27"
+      "lastUpdated": "2026-11-28"
     },
     {
       "id": "confstech-cityai-by-cityjs-conference-2027",
@@ -111,7 +111,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-27"
+      "lastUpdated": "2026-11-28"
     },
     {
       "id": "confstech-ai-coding-summit-asia-2027",
@@ -145,7 +145,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-27"
+      "lastUpdated": "2026-11-28"
     },
     {
       "id": "confstech-3rd-international-conference-on-artificial-intelligence-and-data-science-2027",
@@ -179,7 +179,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-27"
+      "lastUpdated": "2026-11-28"
     },
     {
       "id": "confstech-ai-in-production-2027",
@@ -213,7 +213,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-27"
+      "lastUpdated": "2026-11-28"
     },
     {
       "id": "confstech-accelerate-tomorrow-ai-summit-2027",
@@ -247,7 +247,7 @@
       "notes": "",
       "submittedAt": "",
       "confirmationReference": "",
-      "lastUpdated": "2026-11-27"
+      "lastUpdated": "2026-11-28"
     }
   ]
 };
